@@ -7,15 +7,11 @@ namespace CSharpWebProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        public DbSet<User> RubikUsers { get; set; }
+
         public DbSet<Achievement> Achievements { get; set; }
 
-        //public DbSet<Category> Categories { get; set; }
-
-        //public DbSet<Team> Teams { get; set; }
-
-        //public DbSet<Video> Videos { get; set; }
-
-        //public DbSet<UsersArticles> UsersArticles { get; set; }
+        public DbSet<SolveTime> SolveTimes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -25,17 +21,17 @@ namespace CSharpWebProject.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            //builder
-            //    .Entity<User>()
-            //    .HasMany(u => u.ArticlesVoted)
-            //    .WithOne(av => av.User)
-            //    .HasForeignKey(av => av.UserId);
+            builder
+                .Entity<User>()
+                .HasMany(u => u.SolveTimes)
+                .WithOne(av => av.User)
+                .HasForeignKey(av => av.UserId);
 
-            //builder
-            //    .Entity<Article>()
-            //    .HasMany(a => a.UsersVoted)
-            //    .WithOne(uv => uv.Article)
-            //    .HasForeignKey(uv => uv.ArticleId);
+            builder
+                .Entity<User>()
+                .HasMany(a => a.Achievements)
+                .WithOne(av => av.User)
+                .HasForeignKey(av => av.UserId);
 
             //builder
             //    .Entity<UsersArticles>()

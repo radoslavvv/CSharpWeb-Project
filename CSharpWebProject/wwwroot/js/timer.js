@@ -5,6 +5,7 @@ var Timer = /** @class */ (function () {
         this.spaceIsPressed = false;
         this.timerCanStart = false;
         this.timerFinished = false;
+        this.solveTimes = [];
         // public start(): void {
         //     this.isRunning = true;
         //     this.increment();
@@ -78,22 +79,40 @@ var Timer = /** @class */ (function () {
         var seconds = $("#seconds").get(0).innerHTML;
         var milliseconds = $("#milliseconds").get(0).innerHTML;
         var result = minutes + ":" + seconds + ":" + milliseconds;
-        // $.ajax({
-        //     url: `Home/time/${result}`,
-        //     type: "GET",
-        //     context: document.body
-        //   }).done(() => {
-        //     $( this ).addClass( "done" );
-        //   });
-        $("<li>" + result + "  <a id='delete'>X</a></li>").hide().appendTo("#times").fadeIn("slow");
+        this.solveTimes.push(result);
+        $("<li><span class=\"timeText\">" + result + "</span>  <a class='delete'>X</a></li>").hide().appendTo("#times").fadeIn("slow");
+        var self = this;
+        $(".delete").on("click", function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            var time = $(this).closest("li").find(".timeText").text();
+            var timeIndex = self.solveTimes.indexOf(time);
+            self.solveTimes.splice(timeIndex, 1);
+            console.log(self.solveTimes);
+            $(this).closest("li").fadeOut(300, function () {
+                $(this).remove();
+            });
+        });
+    };
+    Timer.prototype.addTimes = function () {
+        var puzzleType = $("#puzzleType :selected").text();
+        var username = $("#username").text();
+        $.ajax({
+            url: "/times/add",
+            type: "POST",
+            data: { times: JSON.stringify(this.solveTimes), puzzleType: puzzleType, username: username },
+            context: document.body
+        }).done(function () { });
+        $("#times").empty();
     };
     /**
      * Attaches the event listeners to the control buttons
      */
     Timer.prototype.attachEvents = function () {
         var _this = this;
-        $("#stop").on("click", function () {
-            _this.stop();
+        $("#saveTimesButton").on("click", function () {
+            _this.addTimes();
         });
         $("#reset").on("click", function () {
             _this.reset();

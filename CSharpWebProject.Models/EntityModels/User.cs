@@ -13,8 +13,8 @@
             this.Achievements = new List<Achievement>();
         }
 
-        public List<Achievement> Achievements  { get; set; }
+        public virtual ICollection<Achievement> Achievements  { get; set; }
 
-        public List<SolveTime> SolveTimes { get; set; }
+        public virtual ICollection<SolveTime> SolveTimes { get; set; }
     }
 }

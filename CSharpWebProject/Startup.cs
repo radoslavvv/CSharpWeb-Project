@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CSharpWebProject.Data;
 using CSharpWebProject.Models;
+using CSharpWebProject.Services;
 
 namespace CSharpWebProject
 {
@@ -46,6 +47,9 @@ namespace CSharpWebProject
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<ITimesService, TimesService>();
+            services.AddScoped<IUsersService, UsersService>();
 
             services.Configure<IdentityOptions>(options =>
             {

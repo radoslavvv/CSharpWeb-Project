@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSharpWebProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181228152505_initial")]
-    partial class initial
+    [Migration("20181228185938_four")]
+    partial class four
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,12 +42,33 @@ namespace CSharpWebProject.Data.Migrations
                     b.ToTable("Achievements");
                 });
 
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.SolveTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PuzzleType");
+
+                    b.Property<string>("Result");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SolveTimes");
+                });
+
             modelBuilder.Entity("CSharpWebProject.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Age");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -205,8 +226,15 @@ namespace CSharpWebProject.Data.Migrations
 
             modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Achievement", b =>
                 {
-                    b.HasOne("CSharpWebProject.Models.User")
-                        .WithMany("Achievments")
+                    b.HasOne("CSharpWebProject.Models.User", "User")
+                        .WithMany("Achievements")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.SolveTime", b =>
+                {
+                    b.HasOne("CSharpWebProject.Models.User", "User")
+                        .WithMany("SolveTimes")
                         .HasForeignKey("UserId");
                 });
 

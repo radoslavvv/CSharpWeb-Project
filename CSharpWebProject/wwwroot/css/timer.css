@@ -25,3 +25,47 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.delete {
+    color: red !important;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#timesContainer {
+    display: flex;
+    justify-content: center;
+    margin-left: -40px;
+}
+
+#timesContainerTitle {
+    margin-bottom: 0px;
+}
+
+.card {
+    border: 3px solid black;
+}
+
+#timesContainer {
+    overflow: scroll;
+    max-height: 150px;
+    overflow-x: hidden;
+    min-height: 150px;
+}
+
+
+#times {
+    margin-left: 35px;
+    margin-top: 0px;
+}
+
+#saveTimesButton {
+    border-top: 3px solid black;
+    border-radius: 0px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#timesBox{
+    border-radius: 25px;
+}

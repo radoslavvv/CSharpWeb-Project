@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CSharpWebProject.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class three : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -175,6 +175,27 @@ namespace CSharpWebProject.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SolveTimes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Result = table.Column<string>(nullable: true),
+                    PuzzleType = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SolveTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SolveTimes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Achievements_UserId",
                 table: "Achievements",
@@ -218,6 +239,11 @@ namespace CSharpWebProject.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SolveTimes_UserId",
+                table: "SolveTimes",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -239,6 +265,9 @@ namespace CSharpWebProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "SolveTimes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
