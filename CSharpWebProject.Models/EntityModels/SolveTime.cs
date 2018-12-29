@@ -10,7 +10,7 @@ namespace CSharpWebProject.Models.EntityModels
 
         public string Result { get; set; }
 
-        public string PuzzleType { get; set; }
+        public string Type { get; set; }
 
         public string UserId { get; set; }
         public virtual User User { get; set; }

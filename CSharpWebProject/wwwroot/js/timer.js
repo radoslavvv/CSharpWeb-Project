@@ -102,9 +102,9 @@ var Timer = /** @class */ (function () {
         var puzzleType = $("#puzzleType :selected").text();
         var username = $("#username").text();
         $.ajax({
-            url: "/times/add",
+            url: "/Times/AddTimes",
             type: "POST",
-            data: { times: JSON.stringify(this.solveTimes), puzzleType: puzzleType, username: username },
+            data: { times: JSON.stringify(this.solveTimes), timeType: "Practice" },
             context: document.body
         }).done(function () { });
         $("#times").empty();

@@ -7,6 +7,6 @@ namespace CSharpWebProject.Services
     {
         void AddTime(SolveTime time, string userId);
         void AddTimes(List<SolveTime> times, string userId);
-        List<SolveTime> GetAllTimes(string username, string puzzleType);
+        List<SolveTime> GetAllTimes(string username);
     }
 }

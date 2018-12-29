@@ -1,5 +1,7 @@
 ﻿using CSharpWebProject.Data;
 using CSharpWebProject.Models.EntityModels;
+using CSharpWebProject.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,21 +41,22 @@ namespace CSharpWebProject.Services
             this.Context.SaveChanges();
         }
 
-        public List<SolveTime> GetAllTimes(string username, string puzzleType)
+        public List<SolveTime> GetAllTimes(string username)
         {
-            //var user = this.Context.Users.FirstOrDefault(u => u.Id == username);
+            var user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
 
-            //if(user != null)
-            //{
-            //    var times = this.Context
-            //        .Users
-            //        .FirstOrDefault(u => u.Id == user.Id)
-            //        .SolveTimes
-            //        .Where(s => s.PuzzleType == puzzleType)
-            //        .ToList();
+            if (user != null)
+            {
+                var times = this.Context
+                    .Users
+                    .Include(u=>u.SolveTimes)
+                    .FirstOrDefault(u => u.Id == user.Id)
+                    .SolveTimes
+                    .ToList();
 
+                return times;
+            }
 
-            //}
             return null;
         }
     }

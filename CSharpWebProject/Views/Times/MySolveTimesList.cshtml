@@ -1,0 +1,36 @@
+﻿@using CSharpWebProject.Models.ViewModels
+@model PaginatedList<ListSolveTime>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Time Type</th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solveTime in Model)
+        {
+            <tr>
+                <td>@solveTime.Time</td>
+                <td>Practice</td>
+                <td>@solveTime.Date</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a href="/Times/All?page=@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a href="/Times/All?page=@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

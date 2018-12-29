@@ -9,5 +9,7 @@ namespace CSharpWebProject.Models.ViewModels
         public string Time { get; set; }
 
         public string Date { get; set; }
+
+        public string TimeType { get; set; }
     }
 }
