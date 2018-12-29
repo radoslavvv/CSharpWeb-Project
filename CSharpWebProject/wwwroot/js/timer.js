@@ -79,34 +79,63 @@ var Timer = /** @class */ (function () {
         var seconds = $("#seconds").get(0).innerHTML;
         var milliseconds = $("#milliseconds").get(0).innerHTML;
         var result = minutes + ":" + seconds + ":" + milliseconds;
-        this.solveTimes.push(result);
+        if (window.location.href.toLowerCase().indexOf("competition") !== -1 &&
+            this.solveTimes.length === 5) {
+            //TODO: Add warning
+            console.log("max reached");
+        }
+        else {
+            this.solveTimes.push(result);
+            $("<li><span class=\"timeText\">" + result + "</span>  <a class='delete'>X</a></li>")
+                .hide()
+                .appendTo("#times")
+                .fadeIn("slow");
+        }
         if (this.solveTimes.length >= 6) {
             $("#timesContainer").css("overflow-y", "auto");
         }
-        $("<li><span class=\"timeText\">" + result + "</span>  <a class='delete'>X</a></li>").hide().appendTo("#times").fadeIn("slow");
+        // $(`<li><span class="timeText">${result}</span>  <a class='delete'>X</a></li>`).hide().appendTo("#times").fadeIn("slow");
         var self = this;
         $(".delete").on("click", function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             e.stopPropagation();
-            var time = $(this).closest("li").find(".timeText").text();
+            var time = $(this)
+                .closest("li")
+                .find(".timeText")
+                .text();
             var timeIndex = self.solveTimes.indexOf(time);
             self.solveTimes.splice(timeIndex, 1);
             console.log(self.solveTimes);
-            $(this).closest("li").fadeOut(300, function () {
+            $(this)
+                .closest("li")
+                .fadeOut(300, function () {
                 $(this).remove();
             });
         });
     };
     Timer.prototype.addTimes = function () {
-        var puzzleType = $("#puzzleType :selected").text();
-        var username = $("#username").text();
+        if (window.location.href.toLowerCase().indexOf("competition") === -1) {
+            $.ajax({
+                url: "/Times/AddTimes",
+                type: "POST",
+                data: { times: JSON.stringify(this.solveTimes), timeType: "Practice" },
+                context: document.body
+            }).done(function () { });
+            $("#times").empty();
+        }
+    };
+    Timer.prototype.submitTimes = function () {
+        var competitionName = $("#competitionTitle").text();
         $.ajax({
-            url: "/Times/AddTimes",
+            url: "/Competitions/AddTimes",
             type: "POST",
-            data: { times: JSON.stringify(this.solveTimes), timeType: "Practice" },
+            data: {
+                times: JSON.stringify(this.solveTimes),
+                timeType: competitionName
+            },
             context: document.body
-        }).done(function () { });
+        }).done(function (e) { window.location.href = "/Competitions/Index"; });
         $("#times").empty();
     };
     /**
@@ -116,6 +145,9 @@ var Timer = /** @class */ (function () {
         var _this = this;
         $("#saveTimesButton").on("click", function () {
             _this.addTimes();
+        });
+        $("#submitTimesButton").on("click", function () {
+            _this.submitTimes();
         });
         $("#reset").on("click", function () {
             _this.reset();

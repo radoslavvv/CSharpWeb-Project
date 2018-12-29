@@ -19,13 +19,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var competitor in Model.Competitors)
+                @for (int i = 1; i <= Model.Competitors.Count; i++)
                 {
-                    <tr>
-                        <td>@competitor.Name</td>
-                        <td>@competitor.BestTime<td>
-                        <td>@competitor.BestTimeDate<td>
-                    </tr>
+                    {
+                        var competitor = Model.Competitors[i - 1];
+
+                        <tr>
+                            <td>#@(ViewBag.Place++)</td>
+                            <td>@competitor.Name</td>
+                            <td>@competitor.BestTime</td>
+                            <td>@competitor.BestTimeDate</td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
