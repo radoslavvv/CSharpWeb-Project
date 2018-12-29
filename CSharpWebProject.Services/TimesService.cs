@@ -9,7 +9,7 @@ namespace CSharpWebProject.Services
 {
     public class TimesService : Service, ITimesService
     {
-        public TimesService(ApplicationDbContext context): base(context)
+        public TimesService(ApplicationDbContext context) : base(context)
         {
         }
 
@@ -26,7 +26,8 @@ namespace CSharpWebProject.Services
 
         public void AddTimes(List<SolveTime> times, string userId)
         {
-            var userTimes = this.Context.Users
+            var userTimes = this.Context
+               .Users
                .FirstOrDefault(u => u.Id == userId)
                .SolveTimes;
 
@@ -34,8 +35,26 @@ namespace CSharpWebProject.Services
             {
                 userTimes.Add(time);
             }
-           
+
             this.Context.SaveChanges();
+        }
+
+        public List<SolveTime> GetAllTimes(string username, string puzzleType)
+        {
+            //var user = this.Context.Users.FirstOrDefault(u => u.Id == username);
+
+            //if(user != null)
+            //{
+            //    var times = this.Context
+            //        .Users
+            //        .FirstOrDefault(u => u.Id == user.Id)
+            //        .SolveTimes
+            //        .Where(s => s.PuzzleType == puzzleType)
+            //        .ToList();
+
+
+            //}
+            return null;
         }
     }
 }

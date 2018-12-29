@@ -42,8 +42,10 @@ namespace CSharpWebProject.Controllers
         }
 
         // GET: Times/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ListAllTimes(string username, string puzzleType)
         {
+            string userId = this.usersService.GetUserIdByUsername(username);
+            List<SolveTime> solveTimes = this.timesService.GetAllTimes(username, puzzleType);
             return View();
         }
 

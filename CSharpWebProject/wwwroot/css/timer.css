@@ -32,13 +32,42 @@
     cursor: pointer;
 }
 
+
+#timesBox {
+    border-radius: 25px;
+}
+
 #timesContainer {
     display: flex;
     justify-content: center;
     margin-left: -40px;
+    overflow: scroll;
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    min-height: 150px;
 }
 
 #timesContainerTitle {
+    margin-bottom: 0px;
+}
+
+#statsBox {
+    border-radius: 25px;
+}
+
+#statsContainer {
+    display: flex;
+    justify-content: center;
+    margin-left: -40px;
+    overflow: scroll;
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    min-height: 150px;
+}
+
+#statsContainerTitle {
     margin-bottom: 0px;
 }
 
@@ -46,17 +75,11 @@
     border: 3px solid black;
 }
 
-#timesContainer {
-    overflow: scroll;
-    max-height: 150px;
-    overflow-x: hidden;
-    min-height: 150px;
-}
-
 
 #times {
     margin-left: 35px;
     margin-top: 0px;
+    font-size:20px;
 }
 
 #saveTimesButton {
@@ -64,8 +87,4 @@
     border-radius: 0px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-}
-
-#timesBox{
-    border-radius: 25px;
 }

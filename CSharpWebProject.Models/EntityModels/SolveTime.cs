@@ -14,5 +14,7 @@ namespace CSharpWebProject.Models.EntityModels
 
         public string UserId { get; set; }
         public virtual User User { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

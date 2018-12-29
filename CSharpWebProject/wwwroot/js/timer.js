@@ -80,6 +80,9 @@ var Timer = /** @class */ (function () {
         var milliseconds = $("#milliseconds").get(0).innerHTML;
         var result = minutes + ":" + seconds + ":" + milliseconds;
         this.solveTimes.push(result);
+        if (this.solveTimes.length >= 6) {
+            $("#timesContainer").css("overflow-y", "auto");
+        }
         $("<li><span class=\"timeText\">" + result + "</span>  <a class='delete'>X</a></li>").hide().appendTo("#times").fadeIn("slow");
         var self = this;
         $(".delete").on("click", function (e) {
