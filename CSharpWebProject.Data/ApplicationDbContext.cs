@@ -13,11 +13,17 @@ namespace CSharpWebProject.Data
 
         public DbSet<SolveTime> SolveTimes { get; set; }
 
+        public DbSet<Competition> Competitions { get; set; }
+
+        public DbSet<Competitor> Competitors { get; set; }
+
+        public DbSet<Winner> Winners { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-
+      
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -32,6 +38,18 @@ namespace CSharpWebProject.Data
                 .HasMany(a => a.Achievements)
                 .WithOne(av => av.User)
                 .HasForeignKey(av => av.UserId);
+
+            builder.
+                Entity<Competition>()
+                .HasMany(c => c.Competitors).
+                WithOne(c => c.Competition).
+                HasForeignKey(c => c.CompetitionId);
+
+            //builder.
+            //    Entity<Competition>()
+            //    .HasMany(c => c.Winners).
+            //    WithOne(c => c.Competition).
+            //    HasForeignKey(c => c.CompetitionId);
 
             //builder
             //    .Entity<UsersArticles>()

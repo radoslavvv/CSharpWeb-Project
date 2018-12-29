@@ -34,7 +34,7 @@ namespace CSharpWebProject.Controllers
 
             List<SolveTime> solveTimes = result.Select(t => new SolveTime()
             {
-                Result = t,
+                Result = DateTime.ParseExact(t, "mm:ss:fff", CultureInfo.InvariantCulture),
                 UserId = userId,
                 Date = DateTime.Now,
                 Type = timeType
@@ -56,7 +56,7 @@ namespace CSharpWebProject.Controllers
                 .OrderByDescending(t => t.Date)
                  .Select(t => new ListSolveTime()
                  {
-                     Time = t.Result,
+                     Time = t.Result.ToString("mm:ss:fff"),
                      Date = t.Date.ToString("dd/MM/yyyy")
                  }).ToList();
 
@@ -81,7 +81,7 @@ namespace CSharpWebProject.Controllers
                 ListSolveTimes = solveTimes
                         .Select(t => new ListSolveTime()
                         {
-                            Time = t.Result,
+                            Time = t.Result.ToString("mm:ss:fff"),
                             Date = t.Date.ToString("dd/MM/yyyy")
                         }).ToList(),
             };

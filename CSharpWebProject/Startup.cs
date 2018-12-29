@@ -38,8 +38,10 @@ namespace CSharpWebProject
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection")));
 
 
             services
@@ -50,6 +52,7 @@ namespace CSharpWebProject
 
             services.AddScoped<ITimesService, TimesService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ICompetitionsService, CompetitionsService>();
 
             services.Configure<IdentityOptions>(options =>
             {

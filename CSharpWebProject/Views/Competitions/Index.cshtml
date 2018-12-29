@@ -1,0 +1,86 @@
+﻿@using CSharpWebProject.Models.ViewModels
+@model CompetitionsIndexViewModel
+
+<hr />
+<h1 class="text-center">Open Competitions: </h1>
+<hr />
+
+<a href="/Competitions/Create" class="btn btn-primary">Create Competition</a>
+
+@foreach (var openCompetition in Model.OpenCompetitions)
+{
+    <div class="card text-center">
+        <div class="card-header">
+            Open
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><a href="/Competitions/Details?id=@openCompetition.Id">@openCompetition.Name</a></h5>
+            <p class="card-text">@openCompetition.Description</p>
+            <a href="/Competitions/Join?id=@openCompetition.Id" class="btn btn-primary">Join Competition</a>
+        </div>
+        <div class="card-footer text-muted">
+            End Date: @openCompetition.EndDate.ToString("dd/MM/yyyy")
+        </div>
+    </div>
+}
+
+
+@*<div class="card text-center">
+        <div class="card-header">
+            Open
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Bulgaria Open Winter 2018</h5>
+            <p class="card-text">The first bulgarian rubik's cube competiton. Join here for so much fun</p>
+            <a href="#" class="btn btn-primary">Join Competition</a>
+        </div>
+        <div class="card-footer text-muted">
+            End Date: 12/08/2018
+        </div>
+    </div>
+
+    <div class="card text-center">
+        <div class="card-header">
+            Open
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Bulgaria Open Winter 2018</h5>
+            <p class="card-text">The first bulgarian rubik's cube competiton. Join here for so much fun</p>
+            <a href="#" class="btn btn-primary">Join Competition</a>
+        </div>
+        <div class="card-footer text-muted">
+            End Date: 12/08/2018
+        </div>
+    </div>*@
+<hr />
+<h1 class="text-center">Closed Competitions: </h1>
+
+@foreach (var closedCompetition in Model.ClosedCompetitions)
+{
+    <div class="card text-center">
+        <div class="card-header">
+            Closed
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><a href="/Competitions/Details?id=@closedCompetition.Id">@closedCompetition.Name</a></h5>
+            <p class="card-text">@closedCompetition.Description</p>
+            <a href="#" class="disabled  btn-primary">Join Competition</a>
+        </div>
+        <div class="card-footer text-muted">
+            End Date: @closedCompetition.EndDate.ToString("dd/MM/yyyy")
+        </div>
+    </div>
+}
+@*<div class="card text-center">
+        <div class="card-header">
+            Closed
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Bulgaria Open Winter 2018</h5>
+            <p class="card-text">The first bulgarian rubik's cube competiton. Join here for so much fun</p>
+            <a href="#" class="btn btn-primary disabled">Competition Ended</a>
+        </div>
+        <div class="card-footer text-muted">
+            End Date: 12/08/2018
+        </div>
+    </div>*@

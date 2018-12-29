@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSharpWebProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181228185938_four")]
-    partial class four
+    [Migration("20181229170250_competitorasds")]
+    partial class competitorasds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,23 +42,96 @@ namespace CSharpWebProject.Data.Migrations
                     b.ToTable("Achievements");
                 });
 
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Competition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<bool>("IsOpen");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Sponsor");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Competitions");
+                });
+
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Competitor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BestTimeId");
+
+                    b.Property<int>("CompetitionId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BestTimeId");
+
+                    b.HasIndex("CompetitionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Competitors");
+                });
+
             modelBuilder.Entity("CSharpWebProject.Models.EntityModels.SolveTime", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PuzzleType");
+                    b.Property<int?>("CompetitorId");
 
-                    b.Property<string>("Result");
+                    b.Property<DateTime>("Date");
+
+                    b.Property<DateTime>("Result");
+
+                    b.Property<string>("Type");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompetitorId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("SolveTimes");
+                });
+
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Winner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompetitionId");
+
+                    b.Property<int>("Place");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompetitionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Winners");
                 });
 
             modelBuilder.Entity("CSharpWebProject.Models.User", b =>
@@ -67,8 +140,6 @@ namespace CSharpWebProject.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("Age");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -231,10 +302,42 @@ namespace CSharpWebProject.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Competitor", b =>
+                {
+                    b.HasOne("CSharpWebProject.Models.EntityModels.SolveTime", "BestTime")
+                        .WithMany()
+                        .HasForeignKey("BestTimeId");
+
+                    b.HasOne("CSharpWebProject.Models.EntityModels.Competition", "Competition")
+                        .WithMany("Competitors")
+                        .HasForeignKey("CompetitionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSharpWebProject.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("CSharpWebProject.Models.EntityModels.SolveTime", b =>
                 {
+                    b.HasOne("CSharpWebProject.Models.EntityModels.Competitor")
+                        .WithMany("SolveTimes")
+                        .HasForeignKey("CompetitorId");
+
                     b.HasOne("CSharpWebProject.Models.User", "User")
                         .WithMany("SolveTimes")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Winner", b =>
+                {
+                    b.HasOne("CSharpWebProject.Models.EntityModels.Competition", "Competition")
+                        .WithMany()
+                        .HasForeignKey("CompetitionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSharpWebProject.Models.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 

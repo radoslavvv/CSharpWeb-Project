@@ -27,5 +27,12 @@ namespace CSharpWebProject.Services
 
             return null;
         }
+
+        public User GetUserByUsername(string username)
+        {
+            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+
+            return user;
+        }
     }
 }
