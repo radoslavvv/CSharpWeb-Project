@@ -23,13 +23,24 @@
                 {
                     {
                         var competitor = Model.Competitors[i - 1];
-
-                        <tr>
-                            <td>#@(ViewBag.Place++)</td>
-                            <td>@competitor.Name</td>
-                            <td>@competitor.BestTime</td>
-                            <td>@competitor.BestTimeDate</td>
-                        </tr>
+                        if (competitor.Name == User.Identity.Name)
+                        {
+                            <tr class="table-success">
+                                <td>#@(ViewBag.Place++)</td>
+                                <td>@competitor.Name</td>
+                                <td>@competitor.BestTime</td>
+                                <td>@competitor.BestTimeDate</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>#@(ViewBag.Place++)</td>
+                                <td>@competitor.Name</td>
+                                <td>@competitor.BestTime</td>
+                                <td>@competitor.BestTimeDate</td>
+                            </tr>
+                        }
                     }
                 }
             </tbody>

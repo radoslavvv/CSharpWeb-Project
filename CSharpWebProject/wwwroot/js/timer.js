@@ -81,7 +81,7 @@ var Timer = /** @class */ (function () {
         var result = minutes + ":" + seconds + ":" + milliseconds;
         if (window.location.href.toLowerCase().indexOf("competition") !== -1 &&
             this.solveTimes.length === 5) {
-            //TODO: Add warning
+            // tODO: Add warning
             console.log("max reached");
         }
         else {
@@ -114,14 +114,51 @@ var Timer = /** @class */ (function () {
             });
         });
     };
+    Timer.prototype.showAchievement = function () {
+        var _this = this;
+        $("#achievement .circle").removeClass("rotate");
+        // run the animations
+        setTimeout(function () {
+            $("#achievement").addClass("expand");
+            setTimeout(function () {
+                $("#achievement").addClass("widen");
+                setTimeout(function () {
+                    $("#achievement .copy").addClass("show");
+                }, 1000);
+            }, 1000);
+        }, 1000);
+        // hide the achievement
+        setTimeout(function () {
+            _this.hideAchievement();
+        }, 4000);
+    };
+    Timer.prototype.hideAchievement = function () {
+        setTimeout(function () {
+            $("#achievement .copy").removeClass("show");
+            setTimeout(function () {
+                $("#achievement").removeClass("widen");
+                $("#achievement .circle").addClass("rotate");
+                setTimeout(function () {
+                    $("#achievement").removeClass("expand");
+                    $(".refresh").fadeIn(300);
+                }, 1000);
+            }, 1000);
+        }, 3000);
+    };
     Timer.prototype.addTimes = function () {
+        var _this = this;
         if (window.location.href.toLowerCase().indexOf("competition") === -1) {
             $.ajax({
                 url: "/Times/AddTimes",
                 type: "POST",
                 data: { times: JSON.stringify(this.solveTimes), timeType: "Practice" },
                 context: document.body
-            }).done(function () { });
+            }).done(function (gotAchievemnt) {
+                debugger;
+                if (gotAchievemnt) {
+                    _this.showAchievement();
+                }
+            });
             $("#times").empty();
         }
     };

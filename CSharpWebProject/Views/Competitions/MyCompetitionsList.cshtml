@@ -1,5 +1,5 @@
 ﻿@using CSharpWebProject.Models.ViewModels
-@model CompetitionsIndexViewModel
+@model List<CompetitionViewModel>
 
 <hr />
 <h1 class="text-center">Open Competitions: </h1>
@@ -7,32 +7,34 @@
 
 <a href="/Competitions/Create" class="btn btn-primary">Create Competition</a>
 
-@foreach (var openCompetition in Model.OpenCompetitions)
+@foreach (var competition in Model)
 {
     <div class="card text-center">
         <div class="card-header">
-            Open
-        </div>
-        <div class="card-body">
-            <h5 class="card-title"><a href="/Competitions/Details?id=@openCompetition.Id">@openCompetition.Name</a></h5>
-            <p class="card-text">@openCompetition.Description</p>
-            @if (openCompetition.Competitors.Any(c => c.User.UserName == User.Identity.Name))
+            @if (competition.IsOpen)
             {
-                <a href="/Competitions/Join?id=@openCompetition.Id" class="disabled btn btn-primary">Join Competition</a>
-                if (!openCompetition.Competitors.FirstOrDefault(c => c.User.UserName == User.Identity.Name).SubmittedTimes)
-                {
-                    <a href="/Competitions/Timer?id=@openCompetition.Id" class="btn btn-primary">Enter</a>
-                }
+                <span>Open</span>
             }
             else
             {
-                <a href="/Competitions/Join?id=@openCompetition.Id" class=" btn btn-primary">Join Competition</a>
+                <span>Closed</span>
             }
-            <a href="/Competitions/Close?id=@openCompetition.Id" class="btn btn-danger">Close Competition</a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><a href="/Competitions/Details?id=@competition.Id">@competition.Name</a></h5>
+            <p class="card-text">@competition.Description</p>
+
+            @if (!competition.Competitors.FirstOrDefault(c => c.User.UserName == User.Identity.Name).SubmittedTimes && competition.IsOpen)
+            {
+                <a href="/Competitions/Timer?id=@competition.Id" class="btn btn-primary">Enter</a>
+                <a href="/Competitions/Leave?id=@competition.Id" class="btn btn-danger">Leave Competition</a>
+            }
+
+            <a href="/Competitions/Close?id=@competition.Id" class="btn btn-danger">Close Competition</a>
 
         </div>
         <div class="card-footer text-muted">
-            End Date: @openCompetition.EndDate.ToString("dd/MM/yyyy")
+            End Date: @competition.EndDate.ToString("dd/MM/yyyy")
         </div>
     </div>
 }
@@ -65,24 +67,24 @@
             End Date: 12/08/2018
         </div>
     </div>*@
-<hr />
-<h1 class="text-center">Closed Competitions: </h1>
+@*<hr />
+    <h1 class="text-center">Closed Competitions: </h1>*@
 
-@foreach (var closedCompetition in Model.ClosedCompetitions)
-{
-    <div class="card text-center">
-        <div class="card-header">
-            Closed
+@*@foreach (var closedCompetition in Model.ClosedCompetitions)
+    {
+        <div class="card text-center">
+            <div class="card-header">
+                Closed
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><a href="/Competitions/Details?id=@closedCompetition.Id">@closedCompetition.Name</a></h5>
+                <p class="card-text">@closedCompetition.Description</p>
+            </div>
+            <div class="card-footer text-muted">
+                End Date: @closedCompetition.EndDate.ToString("dd/MM/yyyy")
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title"><a href="/Competitions/Details?id=@closedCompetition.Id">@closedCompetition.Name</a></h5>
-            <p class="card-text">@closedCompetition.Description</p>
-        </div>
-        <div class="card-footer text-muted">
-            End Date: @closedCompetition.EndDate.ToString("dd/MM/yyyy")
-        </div>
-    </div>
-}
+    }*@
 @*<div class="card text-center">
         <div class="card-header">
             Closed

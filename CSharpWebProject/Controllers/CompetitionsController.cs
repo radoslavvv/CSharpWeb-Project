@@ -16,10 +16,12 @@ namespace CSharpWebProject.Controllers
     {
         private ICompetitionsService competitionsService;
         private IUsersService usersService;
-        public CompetitionsController(ICompetitionsService competitionsService, IUsersService usersService)
+        private IAchievementsService achievementsService;
+        public CompetitionsController(ICompetitionsService competitionsService, IUsersService usersService, IAchievementsService achievementsService)
         {
             this.competitionsService = competitionsService;
             this.usersService = usersService;
+            this.achievementsService = achievementsService;
         }
 
         public IActionResult Join(int id)
@@ -28,11 +30,30 @@ namespace CSharpWebProject.Controllers
             User user = this.usersService.GetUserByUsername(username);
 
             this.competitionsService.JoinUser(id, user);
+            this.achievementsService.CheckForCompetitionAchievements(username);
 
-            return RedirectToAction("Timer", new { id = id});
+            return RedirectToAction("Timer", new { id = id });
         }
 
-        public IActionResult AddTimes(string times, string timeType)
+        public IActionResult ListMyCompetitions()
+        {
+            User user = this.usersService.GetUserByUsername(this.User.Identity.Name);
+
+            List<CompetitionViewModel> competitions = user.Competitions.Select(c => new CompetitionViewModel()
+            {
+                Competitors = c.Competitors,
+                Description = c.Description,
+                EndDate = c.EndDate,
+                Id = c.Id,
+                Name = c.Name,
+                StartDate = c.StartDate,
+                IsOpen = c.IsOpen
+            }).ToList();
+
+            return View("MyCompetitionsList", competitions);
+        }
+
+        public bool AddTimes(string times, string timeType)
         {
             string[] result = JsonConvert.DeserializeObject<string[]>(times);
 
@@ -50,22 +71,23 @@ namespace CSharpWebProject.Controllers
             Competition competition = this.competitionsService.GetCompetitionByName(timeType);
             this.competitionsService.AddTimes(solveTimes, userId, competition.Id);
 
-            return RedirectToAction("Index", "Competitions");
+            return true;
         }
 
         public IActionResult Timer(int id)
         {
             Competition competition = this.competitionsService.GetCompetitionById(id);
 
-            CompetitionViewModel competitionViewModel = new CompetitionViewModel() {
-               Name = competition.Name,
-               Description = competition.Description,
-               Competitors = competition.Competitors,
-               EndDate = competition.EndDate,
-               StartDate = competition.StartDate,
-               Id = competition.Id
+            CompetitionViewModel competitionViewModel = new CompetitionViewModel()
+            {
+                Name = competition.Name,
+                Description = competition.Description,
+                Competitors = competition.Competitors,
+                EndDate = competition.EndDate,
+                StartDate = competition.StartDate,
+                Id = competition.Id
             };
-            
+
             return View(competitionViewModel);
         }
 
@@ -75,7 +97,8 @@ namespace CSharpWebProject.Controllers
             User user = this.usersService.GetUserByUsername(username);
 
             this.competitionsService.RemoveUser(id, user);
-
+            Competition competition = this.competitionsService.GetCompetitionById(id);
+            
             return RedirectToAction("Index");
         }
 
@@ -143,15 +166,15 @@ namespace CSharpWebProject.Controllers
             List<CompetitorViewModel> competititonComeptitors = competition
                 .Competitors
                 .Select(c => new CompetitorViewModel()
-                    {
-                        Name = c.User.UserName,
-                        BestTime = c.BestTime == null ? "N/A" : c.BestTime.Result.ToString("mm:ss:fff"),
-                        BestTimeDate = c.BestTime == null ? "N/A" : c.BestTime.Date.ToString("dd/MM/yyyy")
-                    })
+                {
+                    Name = c.User.UserName,
+                    BestTime = c.BestTime == null ? "N/A" : c.BestTime.Result.ToString("mm:ss:fff"),
+                    BestTimeDate = c.BestTime == null ? "N/A" : c.BestTime.Date.ToString("dd/MM/yyyy")
+                })
                 .ToList();
 
             int pageSize = 3;
-            
+
             CompetitionDetailsViewModel result;
             if (competition.IsOpen)
             {
@@ -176,7 +199,7 @@ namespace CSharpWebProject.Controllers
                 List<CompetitorViewModel> sortedCompetitors = competititonComeptitors.OrderBy(c => c.BestTime).ToList();
                 List<CompetitorViewModel> winners = sortedCompetitors.Take(3).ToList();
 
-                PaginatedList<CompetitorViewModel> competitorsPage = await PaginatedList<CompetitorViewModel>.CreateAsync(sortedCompetitors.Concat(sortedCompetitors).Concat(sortedCompetitors).Concat(sortedCompetitors).ToList(), page, pageSize);
+                PaginatedList<CompetitorViewModel> competitorsPage = await PaginatedList<CompetitorViewModel>.CreateAsync(sortedCompetitors.ToList(), page, pageSize);
 
                 result = new CompetitionDetailsViewModel()
                 {
@@ -191,7 +214,7 @@ namespace CSharpWebProject.Controllers
                     Winners = winners
                 };
 
-                ViewBag.Place = ((page - 1)  * pageSize) + 1;
+                ViewBag.Place = ((page - 1) * pageSize) + 1;
 
                 return View("ClosedCompetitionDetails", result);
             }

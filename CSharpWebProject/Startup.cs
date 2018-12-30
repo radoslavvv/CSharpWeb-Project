@@ -53,6 +53,8 @@ namespace CSharpWebProject
             services.AddScoped<ITimesService, TimesService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ICompetitionsService, CompetitionsService>();
+            services.AddScoped<IAchievementsService, AchievementsService>();
+
 
             services.Configure<IdentityOptions>(options =>
             {

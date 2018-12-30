@@ -1,0 +1,52 @@
+﻿@using CSharpWebProject.Models.ViewModels
+@model MyAchievementsViewModel
+
+<nav class="navbar navbar-light bg-light">
+    <h3>Competitions: </h3>
+</nav>
+<div>
+    <ul class="list-unstyled">
+        @foreach (var achievement in Model.CompetitionAchivements)
+        {
+            <li class="media my-4">
+                @if (Model.UserAchievements.Any(a => a.Id == achievement.Id))
+                {
+                    <i class="mr-3 fas fa-star achievementStar"></i>
+                }
+                else
+                {
+                    <i class="mr-3 far fa-star achievementStar"></i>
+                }
+
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">@achievement.Name</h5>
+                    @achievement.Description
+                </div>
+            </li>
+        }
+    </ul>
+    <nav class="navbar navbar-light bg-light">
+        <h3>Times: </h3>
+    </nav>
+    <ul class="list-unstyled">
+        @foreach (var achievement in Model.TimesAchivements)
+        {
+            <li class="media my-4">
+                @if (Model.UserAchievements.Any(a => a.Id == achievement.Id))
+                {
+                    <i class="fas fa-star achievementStar"></i>
+                }
+                else
+                {
+                    <i class="mr-3 far fa-star achievementStar"></i>
+                }
+
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">@achievement.Name</h5>
+                    @achievement.Description
+                </div>
+            </li>
+        }
+    </ul>
+
+</div>

@@ -17,15 +17,17 @@ namespace CSharpWebProject.Controllers
     {
         private readonly ITimesService timesService;
         private readonly IUsersService usersService;
+        private readonly IAchievementsService achievementsService;
 
-        public TimesController(ITimesService timesService, IUsersService usersService)
+        public TimesController(ITimesService timesService, IUsersService usersService, IAchievementsService achievementsService)
         {
             this.timesService = timesService;
             this.usersService = usersService;
+            this.achievementsService = achievementsService;
         }
 
         [HttpPost]
-        public IActionResult AddTimes(string times, string timeType = "Practice")
+        public bool AddTimes(string times, string timeType = "Practice")
         {
             string[] result = JsonConvert.DeserializeObject<string[]>(times);
 
@@ -41,9 +43,9 @@ namespace CSharpWebProject.Controllers
             }).ToList();
 
             this.timesService.AddTimes(solveTimes, userId);
+            bool gotAchivement = this.achievementsService.CheckForTimesAchievements(username);
 
-
-            return View();
+            return gotAchivement;
         }
 
         [HttpGet]
@@ -57,7 +59,8 @@ namespace CSharpWebProject.Controllers
                  .Select(t => new ListSolveTime()
                  {
                      Time = t.Result.ToString("mm:ss:fff"),
-                     Date = t.Date.ToString("dd/MM/yyyy")
+                     Date = t.Date.ToString("dd/MM/yyyy"),
+                     TimeType = t.Type
                  }).ToList();
 
 
