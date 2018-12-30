@@ -169,6 +169,10 @@ namespace CSharpWebProject.Controllers
         public async Task<IActionResult> Details(int id, int page = 1)
         {
             Competition competition = this.competitionsService.GetCompetitionById(id);
+            if(competition == null)
+            {
+                return NotFound();
+            }
 
             List<CompetitorViewModel> competititonComeptitors = competition
                 .Competitors

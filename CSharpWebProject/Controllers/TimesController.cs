@@ -29,7 +29,7 @@ namespace CSharpWebProject.Controllers
         }
 
         [HttpPost]
-        public bool AddTimes(string times, string timeType = "Practice")
+        public IActionResult AddTimes(string times, string timeType = "Practice")
         {
             string[] result = JsonConvert.DeserializeObject<string[]>(times);
 
@@ -45,9 +45,9 @@ namespace CSharpWebProject.Controllers
             }).ToList();
 
             this.timesService.AddTimes(solveTimes, userId);
-            bool gotAchivement = this.achievementsService.CheckForTimesAchievements(username);
+            this.achievementsService.CheckForTimesAchievements(username);
 
-            return gotAchivement;
+            return View();
         }
 
         [HttpGet]
