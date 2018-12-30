@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CSharpWebProject.Models.EntityModels.Competition>
+﻿@model IEnumerable<CSharpWebProject.Models.ViewModels.CompetitionViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -60,7 +60,6 @@
                 <a href="/Admin/Competitions/Delete?id=@item.Id" class="btn btn-danger">Delete</a>*@
 
                 <a  class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a  class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a  class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
                 <a  class="btn btn-dark" asp-action="Competitors" asp-route-id="@item.Id">Competitors</a>
             </td>

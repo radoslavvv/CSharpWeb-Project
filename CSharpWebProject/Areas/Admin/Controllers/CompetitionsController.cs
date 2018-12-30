@@ -30,7 +30,17 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // GET: Admin/Competitions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Competitions.ToListAsync());
+            return View(await _context.Competitions.Select(c => new CompetitionViewModel()
+            {
+                StartDate = c.StartDate.ToString("dd/MM/yyyy"),
+                Id = c.Id,
+                Competitors = c.Competitors,
+                Description = c.Description.Substring(0, 20) + "...",
+                EndDate = c.EndDate.ToString("dd/MM/yyyy"),
+                IsOpen = c.IsOpen,
+                Name = c.Name,
+                Sponsor = c.Sponsor
+            }).ToListAsync());
         }
 
         // GET: Admin/Competitors
@@ -51,7 +61,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             User competitor = this.competitionsService
                 .GetCompetitionById(competitionId)
                 .Competitors
-                .FirstOrDefault(c=>c.Id == competitorId)
+                .FirstOrDefault(c => c.Id == competitorId)
                 .User;
 
             this.competitionsService.RemoveUser(competitionId, competitor);

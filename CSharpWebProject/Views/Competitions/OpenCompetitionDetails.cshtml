@@ -4,20 +4,17 @@
 <div class="card mb-3">
     <img src="https://png.pngtree.com/thumb_back/fw800/back_pic/03/93/16/7857e51fac192f4.jpg" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Model.Description</p>
+        <div class="text-center">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Description</p>
+        </div>
+
+
         <h6 class="text-right">Sponsor: @Model.Sponsor</h6>
+
+
         @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
         <h6 class="text-center">Competitors Count: @Model.Competitors.Count</h6>
-
-        @if (Model.Competitors.Any(c => c.Name == User.Identity.Name))
-        {
-        <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
-        }
-        else
-        {
-            <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
-        }
 
         <table class="table table-hover">
             <thead>
@@ -30,13 +27,29 @@
             <tbody>
                 @foreach (var competitor in Model.Competitors)
                 {
-                    <tr>
-                        <td>@competitor.Name</td>
-                        <td>@competitor.BestTime
-                        <td>
-                        <td>@competitor.BestTimeDate
-                        <td>
-                    </tr>
+                    {
+                        if (competitor.Name == User.Identity.Name)
+                        {
+                            <tr class="table-success">
+                                <td>@competitor.Name</td>
+                                <td>@competitor.BestTime
+                                <td>
+                                <td>@competitor.BestTimeDate
+                                <td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@competitor.Name</td>
+                                <td>@competitor.BestTime
+                                <td>
+                                <td>@competitor.BestTimeDate
+                                <td>
+                            </tr>
+                        }
+                    }
+
                 }
             </tbody>
         </table>
@@ -54,5 +67,16 @@
            class="btn btn-default @nextDisabled">
             Next
         </a>
+
+        <div class="text-center">
+            @if (Model.Competitors.Any(c => c.Name == User.Identity.Name))
+            {
+                <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
+            }
+            else
+            {
+                <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
+            }
+        </div>
     </div>
 </div>

@@ -47,10 +47,10 @@ namespace CSharpWebProject.Controllers
             {
                 Competitors = c.Competitors,
                 Description = c.Description,
-                EndDate = c.EndDate,
+                EndDate = c.EndDate.ToString("dd/MM/yyyy"),
                 Id = c.Id,
                 Name = c.Name,
-                StartDate = c.StartDate,
+                StartDate = c.StartDate.ToString("dd/MM/yyyy"),
                 IsOpen = c.IsOpen
             }).ToList();
 
@@ -97,8 +97,8 @@ namespace CSharpWebProject.Controllers
                 Name = competition.Name,
                 Description = competition.Description,
                 Competitors = competition.Competitors,
-                EndDate = competition.EndDate,
-                StartDate = competition.StartDate,
+                EndDate = competition.EndDate.ToString("dd/MM/yyyy"),
+                StartDate = competition.StartDate.ToString("dd/MM/yyyy"),
                 Id = competition.Id
             };
 
@@ -141,8 +141,8 @@ namespace CSharpWebProject.Controllers
                     Id = c.Id,
                     Description = c.Description,
                     Competitors = c.Competitors,
-                    EndDate = c.EndDate,
-                    StartDate = c.StartDate,
+                    EndDate = c.EndDate.ToString("dd/MM/yyyy"),
+                    StartDate = c.StartDate.ToString("dd/MM/yyyy"),
                     Name = c.Name
                 }).ToList();
 
@@ -151,8 +151,8 @@ namespace CSharpWebProject.Controllers
                 Id = c.Id,
                 Description = c.Description,
                 Competitors = c.Competitors,
-                EndDate = c.EndDate,
-                StartDate = c.StartDate,
+                EndDate = c.EndDate.ToString("dd/MM/yyyy"),
+                StartDate = c.StartDate.ToString("dd/MM/yyyy"),
                 Name = c.Name
             }).ToList();
 

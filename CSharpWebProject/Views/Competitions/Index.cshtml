@@ -5,10 +5,10 @@
 <h1 class="text-center">Open Competitions: </h1>
 <hr />
 
-@if (User.IsInRole("Administrator"))
+@*@if (User.IsInRole("Administrator"))
 {
     <a href="Admin/Competitions/Create" class="btn btn-primary">Create Competition</a>
-}
+}*@
 
 
 @foreach (var openCompetition in Model.OpenCompetitions)
@@ -40,7 +40,7 @@
 
             </div>
         <div class="card-footer text-muted">
-            End Date: @openCompetition.EndDate.ToString("dd/MM/yyyy")
+            End Date: @openCompetition.EndDate
         </div>
     </div>
 }
@@ -87,7 +87,7 @@
             <p class="card-text">@closedCompetition.Description</p>
         </div>
         <div class="card-footer text-muted">
-            End Date: @closedCompetition.EndDate.ToString("dd/MM/yyyy")
+            End Date: @closedCompetition.EndDate
         </div>
     </div>
 }

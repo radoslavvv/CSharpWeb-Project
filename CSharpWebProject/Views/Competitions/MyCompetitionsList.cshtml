@@ -2,7 +2,7 @@
 @model List<CompetitionViewModel>
 
 <hr />
-<h1 class="text-center">Open Competitions: </h1>
+<h1 class="text-center">My Competitions: </h1>
 <hr />
 
 @foreach (var competition in Model)
@@ -36,7 +36,7 @@
 
         </div>
         <div class="card-footer text-muted">
-            End Date: @competition.EndDate.ToString("dd/MM/yyyy")
+            End Date: @competition.EndDate
         </div>
     </div>
 }
