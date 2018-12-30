@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpWebProject.Controllers
 {
+    [Authorize]
     public class AchievementsController : Controller
     {
         private IAchievementsService achievementsService;

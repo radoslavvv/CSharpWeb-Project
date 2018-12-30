@@ -168,6 +168,7 @@ var Timer = /** @class */ (function () {
                 }
             });
             $("#times").empty();
+            this.solveTimes = [];
         }
     };
     Timer.prototype.submitTimes = function () {
@@ -189,6 +190,7 @@ var Timer = /** @class */ (function () {
             // }
         });
         $("#times").empty();
+        this.solveTimes = [];
     };
     /**
      * Attaches the event listeners to the control buttons

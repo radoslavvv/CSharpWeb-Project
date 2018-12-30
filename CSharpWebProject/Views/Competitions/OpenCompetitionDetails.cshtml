@@ -12,11 +12,11 @@
 
         @if (Model.Competitors.Any(c => c.Name == User.Identity.Name))
         {
-            <a href="/Competitions/Leave?id=@Model.Id" class=" text-center btn btn-primary">Leave Competition</a>
+        <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
         }
         else
         {
-            <a href="/Competitions/Join?id=@Model.Id" class="text-center btn btn-primary">Join Competition</a>
+            <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
         }
 
         <table class="table table-hover">

@@ -30,7 +30,11 @@
                 <a href="/Competitions/Leave?id=@competition.Id" class="btn btn-danger">Leave Competition</a>
             }
 
-            <a href="/Competitions/Close?id=@competition.Id" class="btn btn-danger">Close Competition</a>
+            @if (User.IsInRole("Administrator"))
+            {
+                <a href="/Admin/Competitions/Close?id=@competition.Id" class="btn btn-danger">Close Competition</a>
+            }
+
 
         </div>
         <div class="card-footer text-muted">

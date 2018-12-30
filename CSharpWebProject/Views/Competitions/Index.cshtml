@@ -5,7 +5,7 @@
 <h1 class="text-center">Open Competitions: </h1>
 <hr />
 
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole("Administrator"))
 {
     <a href="Admin/Competitions/Create" class="btn btn-primary">Create Competition</a>
 }
@@ -33,7 +33,7 @@
             {
                 <a href="/Competitions/Join?id=@openCompetition.Id" class=" btn btn-primary">Join Competition</a>
             }
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Administrator"))
             {
                 <a href="Admin/Competitions/Close?id=@openCompetition.Id" class="btn btn-danger">Close Competition</a>
             }

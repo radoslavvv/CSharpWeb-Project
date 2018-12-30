@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CSharpWebProject.Models.ViewModels.CompetitorViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Competitor Name
+            </th>
+            <th>
+                Competitor Best Time
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BestTime)
+                </td>
+                <td>
+                    <a asp-action="RemoveUser" asp-controller="Competitions" asp-route-competitionId="@item.CompetitionId" asp-route-competitorId="@item.Id">Remove User</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

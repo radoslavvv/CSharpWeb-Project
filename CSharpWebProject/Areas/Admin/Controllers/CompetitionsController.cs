@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using CSharpWebProject.Data;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Services;
+using Microsoft.AspNetCore.Authorization;
+using CSharpWebProject.Models.ViewModels;
+using CSharpWebProject.Models;
 
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
@@ -16,16 +19,44 @@ namespace CSharpWebProject.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ICompetitionsService competitionsService;
-        public CompetitionsController(ApplicationDbContext context, ICompetitionsService competitionsService)
+        private readonly IUsersService usersService;
+        public CompetitionsController(ApplicationDbContext context, ICompetitionsService competitionsService, IUsersService usersService)
         {
             _context = context;
             this.competitionsService = competitionsService;
+            this.usersService = usersService;
         }
 
         // GET: Admin/Competitions
         public async Task<IActionResult> Index()
         {
             return View(await _context.Competitions.ToListAsync());
+        }
+
+        // GET: Admin/Competitors
+        public IActionResult Competitors(int id)
+        {
+            return View(_context.Competitions.FirstOrDefault(c => c.Id == id).Competitors.Select(c => new CompetitorViewModel()
+            {
+                Id = c.Id,
+                BestTime = c.BestTime == null ? "N/A" : c.BestTime.Result.ToString("mm:ss:fff"),
+                BestTimeDate = c.BestTime == null ? "N/A" : c.BestTime.Date.ToString("dd/MM/yyyy"),
+                Name = c.User.UserName,
+                CompetitionId = id
+            }).ToList());
+        }
+
+        public IActionResult RemoveUser(int competitionId, int competitorId)
+        {
+            User competitor = this.competitionsService
+                .GetCompetitionById(competitionId)
+                .Competitors
+                .FirstOrDefault(c=>c.Id == competitorId)
+                .User;
+
+            this.competitionsService.RemoveUser(competitionId, competitor);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Competitions/Details/5

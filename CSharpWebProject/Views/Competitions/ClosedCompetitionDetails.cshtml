@@ -51,13 +51,17 @@
             var nextDisabled = !Model.Competitors.HasNextPage ? "disabled" : "";
         }
 
-        <a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex - 1)"
+        @*<a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
-        </a>
-        <a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex + 1)"
+        </a>*@
+        <a class="btn btn-default @prevDisabled" asp-action="Details" asp-controller="Competitions" asp-route-id="@Model.Id" asp-route-page="@(Model.Competitors.PageIndex - 1)">Previous</a>
+        <a class="btn btn-default @nextDisabled" asp-action="Details" asp-controller="Competitions" asp-route-id="@Model.Id" asp-route-page="@(Model.Competitors.PageIndex + 1)">Next</a>
+        @*<a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
-        </a>
+        </a>*@
     </div>
 </div>
+
+<a  class="text-center btn btn-dark" asp-action="Index" asp-controller="Competitions">Retrun</a>

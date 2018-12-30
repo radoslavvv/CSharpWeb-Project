@@ -11,10 +11,10 @@ namespace CSharpWebProject.Common.Extensions
 {
     public static class ApplicationBuilderAuthExtensions
     {
-        private const string DefaultAdminRole = "Admin";
-        private const string DefaultAdminName = "admin";
-        private const string DefaultAdminEmail = "admin@gmail.com";
-        private const string DefaultAdminPassword = "slojnaparola";
+        private const string DefaultAdminRole = "Administrator";
+        private const string DefaultAdminName = "admin@admin.admin";
+        private const string DefaultAdminEmail = "admin@admin.admin";
+        private const string DefaultAdminPassword = "asdasd";
 
         private static readonly IdentityRole[] roles =
         {

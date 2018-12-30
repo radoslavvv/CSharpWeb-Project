@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 
 namespace CSharpWebProject.Controllers
 {
+    [Authorize]
     public class TimesController : Controller
     {
         private readonly ITimesService timesService;

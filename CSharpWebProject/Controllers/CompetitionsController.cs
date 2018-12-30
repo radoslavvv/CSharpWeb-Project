@@ -7,11 +7,13 @@ using CSharpWebProject.Models;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
 using CSharpWebProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace CSharpWebProject.Controllers
 {
+    [Authorize]
     public class CompetitionsController : Controller
     {
         private ICompetitionsService competitionsService;
