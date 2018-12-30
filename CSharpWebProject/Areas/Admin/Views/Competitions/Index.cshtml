@@ -55,10 +55,14 @@
                 @Html.DisplayFor(modelItem => item.IsOpen)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="Competitors" asp-route-id="@item.Id">Competitors</a>
+                @*<a href="/Admin/Competitions/Edit?id=@item.Id" class="btn btn-outline-dark">Edit</a> |
+                <a href="/Admin/Competitions/Details?id=@item.Id" class="btn btn-dark">Details</a> |
+                <a href="/Admin/Competitions/Delete?id=@item.Id" class="btn btn-danger">Delete</a>*@
+
+                <a  class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a  class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a  class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a  class="btn btn-dark" asp-action="Competitors" asp-route-id="@item.Id">Competitors</a>
             </td>
         </tr>
 }

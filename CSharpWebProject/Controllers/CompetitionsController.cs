@@ -84,6 +84,7 @@ namespace CSharpWebProject.Controllers
             }).ToList();
 
             this.timesService.AddTimes(solveTimes, userId);
+            this.achievementsService.CheckForTimesAchievements(username);
             return true;
         }
 

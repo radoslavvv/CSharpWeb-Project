@@ -7,6 +7,7 @@ using CSharpWebProject.Models;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
 using CSharpWebProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -55,7 +56,7 @@ namespace CSharpWebProject.Controllers
             string username = this.User.Identity.Name;
             string userId = this.usersService.GetUserIdByUsername(username);
             List<ListSolveTime> solveTimes = this.timesService
-                .GetAllTimes(username)
+                .GetAllUserTimes(username)
                 .OrderByDescending(t => t.Date)
                  .Select(t => new ListSolveTime()
                  {
@@ -74,7 +75,7 @@ namespace CSharpWebProject.Controllers
         {
             string username = this.User.Identity.Name;
             string userId = this.usersService.GetUserIdByUsername(username);
-            List<SolveTime> solveTimes = this.timesService.GetAllTimes(username);
+            List<SolveTime> solveTimes = this.timesService.GetAllUserTimes(username);
 
             //string bestTime = solveTimes
             //    .Select(s => DateTime.ParseExact(s.Result, "mm:ss:fff", CultureInfo.InvariantCulture)).Min()

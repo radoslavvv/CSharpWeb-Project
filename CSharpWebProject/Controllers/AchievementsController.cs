@@ -6,6 +6,7 @@ using CSharpWebProject.Models;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
 using CSharpWebProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpWebProject.Controllers

@@ -5,13 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CSharpWebProject.Models;
+using CSharpWebProject.Models.EntityModels;
+using CSharpWebProject.Services;
 
 namespace CSharpWebProject.Controllers
 {
     public class HomeController : Controller
     {
+        private IAchievementsService achievementsService;
+        public HomeController(IAchievementsService achievementsService)
+        {
+            this.achievementsService = achievementsService;
+        }
+
         public IActionResult Index()
         {
+            //this.achievementsService.SeedDabase();
             return View();
         }
 

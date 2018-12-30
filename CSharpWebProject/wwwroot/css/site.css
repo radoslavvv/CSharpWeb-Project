@@ -172,3 +172,9 @@ body {
         transform: rotate(0deg);
     }
 }
+
+#brand-logo {
+    width: 50px;
+    /* margin: 15px; */
+    margin-right: 20px;
+}

@@ -31,8 +31,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CSharpWebProject</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img id="brand-logo" src="https://www.youcandothecube.com/resources/images/assets/rubiks-cube-coloured.png"/>CSharpWebProject</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -41,46 +40,51 @@
                     <partial name="_LoginPartial" />
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Practice</a>
-                            </li>
-                            @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>*@
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Practice</a>
+                        </li>
+                        @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>*@
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Competitions" asp-action="Index">Competitions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Achievements" asp-action="Index">My Achievements</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Competitions" asp-action="ListMyCompetitions">My Competitions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Times" asp-action="All">My Times</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Competitions" asp-action="Index">Competitions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Achievements" asp-action="Index">My Achievements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Competitions" asp-action="ListMyCompetitions">My Competitions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Times" asp-action="All">My Times</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Records" asp-action="Index">Leaderboard</a>
+                        </li>
+                        @if (this.User.IsInRole("Administrator"))
+                        {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                                @if (this.User.IsInRole("Administrator"))
-                                {
+
                                 <div class="dropdown-menu">
 
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Competitions" asp-action="Index">Competitions</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="SolveTimes" asp-action="Index">Solve Times</a>
                                     @*<a class="dropdown-item" href="/Admin/Competitions">Competitions</a>
-        <a class="dropdown-item" href="/Admin/Times">Times</a>
-        <a class="dropdown-item" href="#">Something else here</a>*@
+                    <a class="dropdown-item" href="/Admin/Times">Times</a>
+                    <a class="dropdown-item" href="#">Something else here</a>*@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Separated link</a>
                                 </div>
-                                }
                             </li>
-                        </ul>
+                        }
+
+                    </ul>
+
                     }
                 </div>
-            </div>
         </nav>
     </header>
     <div class="container">
