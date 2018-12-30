@@ -15,6 +15,7 @@ using CSharpWebProject.Models;
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class CompetitionsController : Controller
     {
         private readonly ApplicationDbContext _context;
