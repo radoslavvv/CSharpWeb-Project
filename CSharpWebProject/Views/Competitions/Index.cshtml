@@ -5,7 +5,11 @@
 <h1 class="text-center">Open Competitions: </h1>
 <hr />
 
-<a href="/Competitions/Create" class="btn btn-primary">Create Competition</a>
+@if (User.IsInRole("Admin"))
+{
+    <a href="Admin/Competitions/Create" class="btn btn-primary">Create Competition</a>
+}
+
 
 @foreach (var openCompetition in Model.OpenCompetitions)
 {
@@ -23,14 +27,18 @@
                 {
                     <a href="/Competitions/Timer?id=@openCompetition.Id" class="btn btn-primary">Enter</a>
                 }
+                <a href="/Competitions/Leave?id=@openCompetition.Id" class=" btn btn-primary">Leave Competition</a>
             }
             else
             {
                 <a href="/Competitions/Join?id=@openCompetition.Id" class=" btn btn-primary">Join Competition</a>
             }
-            <a href="/Competitions/Close?id=@openCompetition.Id" class="btn btn-danger">Close Competition</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="Admin/Competitions/Close?id=@openCompetition.Id" class="btn btn-danger">Close Competition</a>
+            }
 
-        </div>
+            </div>
         <div class="card-footer text-muted">
             End Date: @openCompetition.EndDate.ToString("dd/MM/yyyy")
         </div>

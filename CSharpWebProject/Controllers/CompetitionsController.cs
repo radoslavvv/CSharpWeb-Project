@@ -17,11 +17,13 @@ namespace CSharpWebProject.Controllers
         private ICompetitionsService competitionsService;
         private IUsersService usersService;
         private IAchievementsService achievementsService;
-        public CompetitionsController(ICompetitionsService competitionsService, IUsersService usersService, IAchievementsService achievementsService)
+        private ITimesService timesService;
+        public CompetitionsController(ICompetitionsService competitionsService, IUsersService usersService, IAchievementsService achievementsService, ITimesService timesService)
         {
             this.competitionsService = competitionsService;
             this.usersService = usersService;
             this.achievementsService = achievementsService;
+            this.timesService = timesService;
         }
 
         public IActionResult Join(int id)
@@ -60,7 +62,7 @@ namespace CSharpWebProject.Controllers
             string username = this.User.Identity.Name;
             string userId = this.usersService.GetUserIdByUsername(username);
 
-            List<CompetiveSolveTime> solveTimes = result.Select(t => new CompetiveSolveTime()
+            List<CompetiveSolveTime> competitionTimes = result.Select(t => new CompetiveSolveTime()
             {
                 Result = DateTime.ParseExact(t, "mm:ss:fff", CultureInfo.InvariantCulture),
                 UserId = userId,
@@ -69,8 +71,17 @@ namespace CSharpWebProject.Controllers
             }).ToList();
 
             Competition competition = this.competitionsService.GetCompetitionByName(timeType);
-            this.competitionsService.AddTimes(solveTimes, userId, competition.Id);
+            this.competitionsService.AddTimes(competitionTimes, userId, competition.Id);
 
+            List<SolveTime> solveTimes = competitionTimes.Select(s => new SolveTime()
+            {
+                Date = s.Date,
+                Result = s.Result,
+                Type = s.Type,
+                UserId = s.UserId
+            }).ToList();
+
+            this.timesService.AddTimes(solveTimes, userId);
             return true;
         }
 
@@ -105,13 +116,6 @@ namespace CSharpWebProject.Controllers
         public IActionResult Create()
         {
             return View();
-        }
-
-        public IActionResult Close(int id)
-        {
-            this.competitionsService.CloseCompetition(id);
-
-            return RedirectToAction("Index");
         }
 
         [HttpPost]

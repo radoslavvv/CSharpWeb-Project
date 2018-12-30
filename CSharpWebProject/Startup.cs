@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CSharpWebProject.Data;
 using CSharpWebProject.Models;
 using CSharpWebProject.Services;
+using CSharpWebProject.Common.Extensions;
 
 namespace CSharpWebProject
 {
@@ -90,8 +91,12 @@ namespace CSharpWebProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
+
+            if (env.IsDevelopment())
+            {
+                app.SeedDatabase();
+            }
 
             app.UseMvc(routes =>
             {

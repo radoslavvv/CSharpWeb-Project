@@ -6,6 +6,10 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="Common\Extensions\ApplicationBuilderAuthExtensions.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="JSON" Version="1.0.1" />
@@ -19,6 +23,12 @@
   <ItemGroup>
     <ProjectReference Include="..\CSharpWebProject.Data\CSharpWebProject.Data.csproj" />
     <ProjectReference Include="..\CSharpWebProject.Services\CSharpWebProject.Services.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
 </Project>

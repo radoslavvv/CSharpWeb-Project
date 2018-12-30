@@ -86,10 +86,18 @@ var Timer = /** @class */ (function () {
         }
         else {
             this.solveTimes.push(result);
-            $("<li><span class=\"timeText\">" + result + "</span>  <a class='delete'>X</a></li>")
-                .hide()
-                .appendTo("#times")
-                .fadeIn("slow");
+            if (window.location.href.toLowerCase().indexOf("competition") !== -1) {
+                $("<li><span class=\"timeText\">" + result + "</span></li>")
+                    .hide()
+                    .appendTo("#times")
+                    .fadeIn("slow");
+            }
+            else {
+                $("<li><span class=\"timeText\">" + result + "</span>  <a class='delete'>X</a></li>")
+                    .hide()
+                    .appendTo("#times")
+                    .fadeIn("slow");
+            }
         }
         if (this.solveTimes.length >= 6) {
             $("#timesContainer").css("overflow-y", "auto");
@@ -124,13 +132,13 @@ var Timer = /** @class */ (function () {
                 $("#achievement").addClass("widen");
                 setTimeout(function () {
                     $("#achievement .copy").addClass("show");
-                }, 1000);
-            }, 1000);
-        }, 1000);
+                }, 500);
+            }, 500);
+        }, 500);
         // hide the achievement
         setTimeout(function () {
             _this.hideAchievement();
-        }, 4000);
+        }, 1000);
     };
     Timer.prototype.hideAchievement = function () {
         setTimeout(function () {
@@ -141,9 +149,10 @@ var Timer = /** @class */ (function () {
                 setTimeout(function () {
                     $("#achievement").removeClass("expand");
                     $(".refresh").fadeIn(300);
-                }, 1000);
-            }, 1000);
-        }, 3000);
+                    window.location.href = "/Home/Index";
+                }, 900);
+            }, 900);
+        }, 1500);
     };
     Timer.prototype.addTimes = function () {
         var _this = this;
@@ -154,7 +163,6 @@ var Timer = /** @class */ (function () {
                 data: { times: JSON.stringify(this.solveTimes), timeType: "Practice" },
                 context: document.body
             }).done(function (gotAchievemnt) {
-                debugger;
                 if (gotAchievemnt) {
                     _this.showAchievement();
                 }
@@ -172,7 +180,14 @@ var Timer = /** @class */ (function () {
                 timeType: competitionName
             },
             context: document.body
-        }).done(function (e) { window.location.href = "/Competitions/Index"; });
+        }).done(function (e) {
+            window.location.href = "/Home/Index";
+            // if (gotAchievemnt) {
+            //   this.showAchievement();
+            // } else {
+            //  
+            // }
+        });
         $("#times").empty();
     };
     /**
@@ -185,14 +200,6 @@ var Timer = /** @class */ (function () {
         });
         $("#submitTimesButton").on("click", function () {
             _this.submitTimes();
-        });
-        $("#reset").on("click", function () {
-            _this.reset();
-        });
-        $("#start").on("click", function () {
-            if (!_this.timerFinished) {
-                _this.start();
-            }
         });
         $(document).on("keydown", function (e) {
             if (e.keyCode === 32 && !_this.spaceIsPressed && !_this.timerFinished) {

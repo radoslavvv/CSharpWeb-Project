@@ -35,6 +35,10 @@
 
 #timesBox {
     border-radius: 25px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 #timesContainer {
@@ -42,7 +46,7 @@
     justify-content: center;
     margin-left: -40px;
     overflow: scroll;
-    max-height: 150px;
+    max-height: 200px;;
     overflow-x: hidden;
     overflow-y: hidden;
     min-height: 150px;
@@ -82,7 +86,7 @@
     font-size:20px;
 }
 
-#saveTimesButton {
+#saveTimesButton, #submitTimesButton {
     border-top: 3px solid black;
     border-radius: 0px;
     border-bottom-right-radius: 20px;
