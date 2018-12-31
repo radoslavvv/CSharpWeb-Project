@@ -45,9 +45,9 @@ namespace CSharpWebProject.Services
                 return false;
             }
 
-            List<SolveTime> userTimes = user
-               .SolveTimes
-               .ToList();
+            var userTimes = user
+               .SolveTimes;
+               //TODO?
 
             foreach (var time in times)
             {

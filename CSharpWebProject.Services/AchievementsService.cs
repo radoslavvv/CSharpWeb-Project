@@ -216,6 +216,11 @@ namespace CSharpWebProject.Services
         public MyAchievementsViewModel GetAllAchievements(string username)
         {
             User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            if(user == null)
+            {
+                return new MyAchievementsViewModel();
+            }
+
             List<AchievementViewModel> timesAchivements = this
                 .Context
                 .Achievements

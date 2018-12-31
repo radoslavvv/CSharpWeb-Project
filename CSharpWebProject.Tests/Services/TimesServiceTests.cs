@@ -7,7 +7,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CSharpWebProject.Tests.Services
 {
@@ -110,13 +109,13 @@ namespace CSharpWebProject.Tests.Services
             dbContext.SaveChanges();
 
             timesService.AddTimes(solveTimes, userId);
-            int userSolveTimesCount = dbContext
+            var userSolveTimesCount = dbContext
                 .Users
                 .FirstOrDefault(u => u.Id == userId)
                 .SolveTimes
                 .Count;
 
-            Assert.AreEqual(solveTimes.Count, userSolveTimesCount );
+            Assert.AreEqual(solveTimes.Count, userSolveTimesCount);
         }
 
         [Test]
@@ -188,7 +187,7 @@ namespace CSharpWebProject.Tests.Services
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
 
-            bool result = timesService.AddTimes(solveTimes, "RandomId");
+            bool result = timesService.AddTimes(solveTimes, userId);
 
             Assert.AreEqual(true, result);
         }
@@ -289,7 +288,7 @@ namespace CSharpWebProject.Tests.Services
 
             TimesService timesService = new TimesService(dbContext);
             string userId = "id";
-            SolveTime solveTime = null;
+            SolveTime solveTime = new SolveTime() {  };
 
             User user = new User()
             {

@@ -15,6 +15,7 @@ namespace CSharpWebProject.Services
         {
         }
 
+        // Tested
         public ICollection<Competition> GetAllOpenCompetitions()
         {
             List<Competition> openCompetitions = this.Context
@@ -25,6 +26,7 @@ namespace CSharpWebProject.Services
             return openCompetitions;
         }
 
+        // Tested
         public ICollection<Competition> GetAllClosedCompetitions()
         {
             List<Competition> closedCompetitions = this.Context
@@ -35,6 +37,7 @@ namespace CSharpWebProject.Services
             return closedCompetitions;
         }
 
+        // Tested
         public Competition GetCompetitionById(int id)
         {
             Competition competiton = this.Context.Competitions.FirstOrDefault(c => c.Id == id);
@@ -42,6 +45,7 @@ namespace CSharpWebProject.Services
             return competiton;
         }
 
+        // Tested
         public List<Competitor> GetCompetitionCompetitors(int id)
         {
             Competition competition = this.Context
@@ -92,6 +96,7 @@ namespace CSharpWebProject.Services
             return true;
         }
 
+        //Tested
         public void CreateCompetition(Competition competition)
         {
             if (competition != null)
@@ -111,6 +116,10 @@ namespace CSharpWebProject.Services
             }
 
             Competitor competitor = competition.Competitors.FirstOrDefault(c => c.User.UserName == user.UserName);
+            if(competitor == null)
+            {
+                return false;
+            }
 
             competition.Competitors.Remove(competitor);
             user.Competitions.Remove(competition);
@@ -152,11 +161,13 @@ namespace CSharpWebProject.Services
             return true;
         }
 
+        // Tested
         public Competition GetCompetitionByName(string competitionName)
         {
             return this.Context.Competitions.FirstOrDefault(c => c.Name == competitionName);
         }
 
+        // Tested
         public bool CloseCompetition(int id)
         {
             Competition competition = this.GetCompetitionById(id);
