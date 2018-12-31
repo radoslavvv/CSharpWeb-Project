@@ -5,8 +5,9 @@ namespace CSharpWebProject.Services
 {
     public interface ITimesService
     {
-        void AddTime(SolveTime time, string userId);
-        void AddTimes(List<SolveTime> times, string userId);
-        List<SolveTime> GetAllTimes(string username);
+        bool AddTime(SolveTime time, string userId);
+        bool AddTimes(List<SolveTime> times, string userId);
+        List<SolveTime> GetAllUserTimes(string username);
+        List<SolveTime> GetAllTimes();
     }
 }

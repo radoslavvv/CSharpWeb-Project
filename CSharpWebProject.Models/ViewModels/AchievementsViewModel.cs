@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CSharpWebProject.Models.EntityModels
+namespace CSharpWebProject.Models.ViewModels
 {
-    public class Achievement
+   public class AchievementViewModel
     {
-        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -15,7 +13,5 @@ namespace CSharpWebProject.Models.EntityModels
         public string Description { get; set; }
 
         public string Category { get; set; }
-
-        public virtual List<UserAchievement> Users { get; set; }
     }
 }

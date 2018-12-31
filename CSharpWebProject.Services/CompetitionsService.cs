@@ -44,33 +44,131 @@ namespace CSharpWebProject.Services
 
         public List<Competitor> GetCompetitionCompetitors(int id)
         {
-            List<Competitor> competitors = this.Context
+            Competition competition = this.Context
                 .Competitions
-                .FirstOrDefault(c => c.Id == id)
+                .FirstOrDefault(c => c.Id == id);
+
+            if (competition == null)
+            {
+                return new List<Competitor>();
+            }
+
+            List<Competitor> competitors = competition
                 .Competitors
                 .ToList();
 
             return competitors;
         }
 
-        public void JoinUser(int competitionId, User user)
+        public bool JoinUser(int competitionId, User user)
         {
-            this.Context
+            Competition competition = this.Context
                 .Competitions
-                .FirstOrDefault(c => c.Id == competitionId)
-                .Competitors
+                .FirstOrDefault(c => c.Id == competitionId);
+
+            if (competition == null)
+            {
+                return false;
+            }
+
+            competition.Competitors
                 .Add(new Competitor()
                 {
                     User = user,
                 });
 
+            User dbUser = this.Context
+                .Users
+                .FirstOrDefault(u => u.UserName == user.UserName);
+
+            if (dbUser == null)
+            {
+                return false;
+            }
+
+            dbUser.Competitions.Add(competition);
             this.Context.SaveChanges();
+
+            return true;
         }
 
         public void CreateCompetition(Competition competition)
         {
-            this.Context.Competitions.Add(competition);
+            if (competition != null)
+            {
+                this.Context.Competitions.Add(competition);
+                this.Context.SaveChanges();
+            }
+        }
+
+
+        public bool RemoveUser(int id, User user)
+        {
+            Competition competition = this.Context.Competitions.FirstOrDefault(c => c.Id == id);
+            if(competition == null)
+            {
+                return false;
+            }
+
+            Competitor competitor = competition.Competitors.FirstOrDefault(c => c.User.UserName == user.UserName);
+
+            competition.Competitors.Remove(competitor);
+            user.Competitions.Remove(competition);
             this.Context.SaveChanges();
+
+            return true;
+        }
+
+        public bool AddTimes(List<CompetiveSolveTime> solveTimes, string userId, int competitionId)
+        {
+            Competition competition = this.Context
+                .Competitions
+                .FirstOrDefault(c => c.Id == competitionId);
+            if(competition == null)
+            {
+                return false;
+            }
+
+            Competitor competitor = competition
+                .Competitors
+                .FirstOrDefault(c => c.UserId == userId);
+
+            if(competitor == null)
+            {
+                return false;
+            }
+
+            CompetiveSolveTime bestTime = solveTimes.OrderByDescending(t => t.Result).FirstOrDefault();
+            if(bestTime == null)
+            {
+                return false;
+            }
+
+            competitor.SolveTimes = solveTimes;
+            competitor.BestTime = bestTime;
+            competitor.SubmittedTimes = true;
+
+            this.Context.SaveChanges();
+            return true;
+        }
+
+        public Competition GetCompetitionByName(string competitionName)
+        {
+            return this.Context.Competitions.FirstOrDefault(c => c.Name == competitionName);
+        }
+
+        public bool CloseCompetition(int id)
+        {
+            Competition competition = this.GetCompetitionById(id);
+
+            if(competition == null)
+            {
+                return false;
+            }
+
+            competition.IsOpen = false;
+            this.Context.SaveChanges();
+            return true;
         }
     }
 }

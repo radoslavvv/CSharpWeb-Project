@@ -1,4 +1,5 @@
 ﻿using CSharpWebProject.Data;
+using CSharpWebProject.Models;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -15,35 +16,64 @@ namespace CSharpWebProject.Services
         {
         }
 
-        public void AddTime(SolveTime time, string userId)
+        public bool AddTime(SolveTime time, string userId)
         {
-            this.Context
+            User user = this.Context
                 .Users
-                .FirstOrDefault(u => u.Id == userId)
-                .SolveTimes
+                .FirstOrDefault(u => u.Id == userId);
+
+            if(user == null || time == null)
+            {
+                return false;
+            }
+
+            user.SolveTimes
                 .Add(time);
 
             this.Context.SaveChanges();
+            return true;
         }
 
-        public void AddTimes(List<SolveTime> times, string userId)
+        public bool AddTimes(List<SolveTime> times, string userId)
         {
-            var userTimes = this.Context
+            User user = this.Context
                .Users
-               .FirstOrDefault(u => u.Id == userId)
-               .SolveTimes;
+               .FirstOrDefault(u => u.Id == userId);
+
+            if(user == null)
+            {
+                return false;
+            }
+
+            List<SolveTime> userTimes = user
+               .SolveTimes
+               .ToList();
 
             foreach (var time in times)
             {
-                userTimes.Add(time);
+                if(time != null)
+                {
+                    userTimes.Add(time);
+                }
             }
 
             this.Context.SaveChanges();
+            return true;
         }
 
-        public List<SolveTime> GetAllTimes(string username)
+        public List<SolveTime> GetAllTimes()
         {
-            var user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            List<SolveTime> times = this
+                .Context
+                .SolveTimes
+                .ToList();
+
+            return times;
+        }
+
+        public List<SolveTime> GetAllUserTimes(string username)
+        {
+            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
 
             if (user != null)
             {
@@ -57,7 +87,7 @@ namespace CSharpWebProject.Services
                 return times;
             }
 
-            return null;
+            return new List<SolveTime>();
         }
     }
 }

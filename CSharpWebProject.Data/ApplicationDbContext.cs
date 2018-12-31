@@ -13,6 +13,8 @@ namespace CSharpWebProject.Data
 
         public DbSet<SolveTime> SolveTimes { get; set; }
 
+        public DbSet<CompetiveSolveTime> CompetiveSolveTimes { get; set; }
+
         public DbSet<Competition> Competitions { get; set; }
 
         public DbSet<Competitor> Competitors { get; set; }
@@ -31,29 +33,41 @@ namespace CSharpWebProject.Data
                 .Entity<User>()
                 .HasMany(u => u.SolveTimes)
                 .WithOne(av => av.User)
-                .HasForeignKey(av => av.UserId);
+                .HasForeignKey(av => av.UserId)
+                .OnDelete(DeleteBehavior.Cascade); ;
+
 
             builder
-                .Entity<User>()
-                .HasMany(a => a.Achievements)
-                .WithOne(av => av.User)
-                .HasForeignKey(av => av.UserId);
+                .Entity<Competition>()
+                .HasMany(c => c.Competitors)
+                .WithOne(c => c.Competition)
+                .HasForeignKey(c => c.CompetitionId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.
-                Entity<Competition>()
-                .HasMany(c => c.Competitors).
-                WithOne(c => c.Competition).
-                HasForeignKey(c => c.CompetitionId);
+            //builder.Entity<CompetiveSolveTime>()
+            //    .HasOne(s => s.User)
+            //    .WithMany(s => s.SolveTimes)
+            //    .HasForeignKey(s => s.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Competitor>()
+                .HasMany(c => c.SolveTimes)
+                .WithOne(s => s.Competitor)
+                .HasForeignKey(c => c.CompetitorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //builder
+            //    .Entity<SolveTime>()
+            //    .OnDelete(DeleteBehavior.Cascade);
             //builder.
             //    Entity<Competition>()
             //    .HasMany(c => c.Winners).
             //    WithOne(c => c.Competition).
             //    HasForeignKey(c => c.CompetitionId);
 
-            //builder
-            //    .Entity<UsersArticles>()
-            //    .HasKey(ua => new { ua.UserId, ua.ArticleId });
+            builder
+                .Entity<UserAchievement>()
+                .HasKey(ua => new { ua.UserId, ua.AchievementId });
 
             base.OnModelCreating(builder);
         }

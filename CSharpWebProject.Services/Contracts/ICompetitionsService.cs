@@ -10,7 +10,11 @@ namespace CSharpWebProject.Services
         ICollection<Competition> GetAllOpenCompetitions();
         Competition GetCompetitionById(int id);
         List<Competitor> GetCompetitionCompetitors(int id);
-        void JoinUser(int competitionId, User user);
+        bool JoinUser(int competitionId, User user);
         void CreateCompetition(Competition competition);
+        bool RemoveUser(int id, User user);
+        bool AddTimes(List<CompetiveSolveTime> solveTimes, string userId, int competitionId);
+        Competition GetCompetitionByName(string competitionName);
+        bool CloseCompetition(int id);
     }
 }

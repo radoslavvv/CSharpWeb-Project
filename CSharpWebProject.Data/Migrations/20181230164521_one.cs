@@ -4,10 +4,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CSharpWebProject.Data.Migrations
 {
-    public partial class competitorasds : Migration
+    public partial class one : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Achievements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Category = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Achievements", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -48,24 +63,6 @@ namespace CSharpWebProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Competitions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
-                    Sponsor = table.Column<string>(nullable: true),
-                    IsOpen = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Competitions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -84,28 +81,6 @@ namespace CSharpWebProject.Data.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Achievements",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    URL = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Achievements", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Achievements_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,6 +169,77 @@ namespace CSharpWebProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Competitions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Sponsor = table.Column<string>(nullable: true),
+                    IsOpen = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Competitions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Competitions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SolveTimes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Result = table.Column<DateTime>(nullable: false),
+                    Type = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SolveTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SolveTimes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserAchievement",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    AchievementId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAchievement", x => new { x.UserId, x.AchievementId });
+                    table.ForeignKey(
+                        name: "FK_UserAchievement_Achievements_AchievementId",
+                        column: x => x.AchievementId,
+                        principalTable: "Achievements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserAchievement_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Winners",
                 columns: table => new
                 {
@@ -228,7 +274,8 @@ namespace CSharpWebProject.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
                     BestTimeId = table.Column<int>(nullable: true),
-                    CompetitionId = table.Column<int>(nullable: false)
+                    CompetitionId = table.Column<int>(nullable: false),
+                    SubmittedTimes = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,7 +295,7 @@ namespace CSharpWebProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SolveTimes",
+                name: "CompetiveSolveTimes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -256,30 +303,25 @@ namespace CSharpWebProject.Data.Migrations
                     Result = table.Column<DateTime>(nullable: false),
                     Type = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false),
-                    CompetitorId = table.Column<int>(nullable: true)
+                    CompetitorId = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SolveTimes", x => x.Id);
+                    table.PrimaryKey("PK_CompetiveSolveTimes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SolveTimes_Competitors_CompetitorId",
+                        name: "FK_CompetiveSolveTimes_Competitors_CompetitorId",
                         column: x => x.CompetitorId,
                         principalTable: "Competitors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SolveTimes_AspNetUsers_UserId",
+                        name: "FK_CompetiveSolveTimes_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Achievements_UserId",
-                table: "Achievements",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -321,6 +363,11 @@ namespace CSharpWebProject.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Competitions_UserId",
+                table: "Competitions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Competitors_BestTimeId",
                 table: "Competitors",
                 column: "BestTimeId");
@@ -336,14 +383,24 @@ namespace CSharpWebProject.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SolveTimes_CompetitorId",
-                table: "SolveTimes",
+                name: "IX_CompetiveSolveTimes_CompetitorId",
+                table: "CompetiveSolveTimes",
                 column: "CompetitorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompetiveSolveTimes_UserId",
+                table: "CompetiveSolveTimes",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SolveTimes_UserId",
                 table: "SolveTimes",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserAchievement_AchievementId",
+                table: "UserAchievement",
+                column: "AchievementId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Winners_CompetitionId",
@@ -356,10 +413,10 @@ namespace CSharpWebProject.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Competitors_SolveTimes_BestTimeId",
+                name: "FK_Competitors_CompetiveSolveTimes_BestTimeId",
                 table: "Competitors",
                 column: "BestTimeId",
-                principalTable: "SolveTimes",
+                principalTable: "CompetiveSolveTimes",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -367,19 +424,20 @@ namespace CSharpWebProject.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_Competitions_AspNetUsers_UserId",
+                table: "Competitions");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Competitors_AspNetUsers_UserId",
                 table: "Competitors");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_SolveTimes_AspNetUsers_UserId",
-                table: "SolveTimes");
+                name: "FK_CompetiveSolveTimes_AspNetUsers_UserId",
+                table: "CompetiveSolveTimes");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Competitors_SolveTimes_BestTimeId",
+                name: "FK_Competitors_CompetiveSolveTimes_BestTimeId",
                 table: "Competitors");
-
-            migrationBuilder.DropTable(
-                name: "Achievements");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -397,16 +455,25 @@ namespace CSharpWebProject.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "SolveTimes");
+
+            migrationBuilder.DropTable(
+                name: "UserAchievement");
+
+            migrationBuilder.DropTable(
                 name: "Winners");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Achievements");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "SolveTimes");
+                name: "CompetiveSolveTimes");
 
             migrationBuilder.DropTable(
                 name: "Competitors");

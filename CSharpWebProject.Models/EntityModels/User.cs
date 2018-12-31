@@ -10,11 +10,15 @@
         public User()
         {
             this.SolveTimes = new List<SolveTime>();
-            this.Achievements = new List<Achievement>();
+            this.Achievements = new HashSet<UserAchievement>();
+            this.Competitions = new List<Competition>();
         }
 
-        public virtual ICollection<Achievement> Achievements  { get; set; }
+        public virtual ICollection<UserAchievement> Achievements  { get; set; }
 
         public virtual ICollection<SolveTime> SolveTimes { get; set; }
+
+        public virtual ICollection<Competition> Competitions { get; set; }
+
     }
 }

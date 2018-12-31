@@ -23,5 +23,7 @@ namespace CSharpWebProject.Models.ViewModels
         public DateTime EndDate { get; set; }
 
         public string Sponsor { get; set; }
+
+        public bool IsOpen { get; set; }
     }
 }

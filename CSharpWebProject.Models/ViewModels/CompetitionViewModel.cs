@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpWebProject.Models.EntityModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,10 +13,14 @@ namespace CSharpWebProject.Models.ViewModels
 
         public string Description { get; set; }
 
-        public int CompetitorsCount { get; set; }
+        public List<Competitor> Competitors { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
+
+        public bool IsOpen { get; set; }
+
+        public string Sponsor { get; set; }
     }
 }
