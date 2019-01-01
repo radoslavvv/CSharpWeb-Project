@@ -22,7 +22,6 @@
             <p class="card-text">@openCompetition.Description</p>
             @if (openCompetition.Competitors.Any(c => c.User.UserName == User.Identity.Name))
             {
-                <a href="/Competitions/Join?id=@openCompetition.Id" class="disabled btn btn-primary">Join Competition</a>
                 if (!openCompetition.Competitors.FirstOrDefault(c => c.User.UserName == User.Identity.Name).SubmittedTimes)
                 {
                     <a href="/Competitions/Timer?id=@openCompetition.Id" class="btn btn-primary">Enter</a>

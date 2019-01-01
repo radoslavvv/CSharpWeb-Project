@@ -32,13 +32,15 @@
     cursor: pointer;
 }
 
+#timesAlert {
+    display: none;
+}
 
 #timesBox {
     border-radius: 25px;
     width: 600px;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 #timesContainer {

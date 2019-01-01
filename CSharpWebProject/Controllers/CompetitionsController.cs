@@ -39,7 +39,7 @@ namespace CSharpWebProject.Controllers
             return RedirectToAction("Timer", new { id = id });
         }
 
-        public IActionResult ListMyCompetitions()
+        public IActionResult MyCompetitions()
         {
             User user = this.usersService.GetUserByUsername(this.User.Identity.Name);
 
@@ -91,18 +91,28 @@ namespace CSharpWebProject.Controllers
         public IActionResult Timer(int id)
         {
             Competition competition = this.competitionsService.GetCompetitionById(id);
-
-            CompetitionViewModel competitionViewModel = new CompetitionViewModel()
+            if(competition == null)
             {
-                Name = competition.Name,
-                Description = competition.Description,
-                Competitors = competition.Competitors,
-                EndDate = competition.EndDate.ToString("dd/MM/yyyy"),
-                StartDate = competition.StartDate.ToString("dd/MM/yyyy"),
-                Id = competition.Id
-            };
+                return NotFound();
+            }
 
-            return View(competitionViewModel);
+            string userId = User.Identity.Name;
+            if(competition.Competitors.Any(c => c.User.UserName == userId) && competition.IsOpen)
+            {
+                CompetitionViewModel competitionViewModel = new CompetitionViewModel()
+                {
+                    Name = competition.Name,
+                    Description = competition.Description,
+                    Competitors = competition.Competitors,
+                    EndDate = competition.EndDate.ToString("dd/MM/yyyy"),
+                    StartDate = competition.StartDate.ToString("dd/MM/yyyy"),
+                    Id = competition.Id
+                };
+
+                return View(competitionViewModel);
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Leave(int id)

@@ -21,6 +21,8 @@ namespace CSharpWebProject.Data
 
         public DbSet<Winner> Winners { get; set; }
 
+        public DbSet<NewsPost> Posts { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

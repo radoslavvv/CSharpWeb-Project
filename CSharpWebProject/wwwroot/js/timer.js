@@ -81,11 +81,15 @@ var Timer = /** @class */ (function () {
         var result = minutes + ":" + seconds + ":" + milliseconds;
         if (window.location.href.toLowerCase().indexOf("competition") !== -1 &&
             this.solveTimes.length === 5) {
+            $("#timesAlert").alert().fadeIn();
             // tODO: Add warning
             console.log("max reached");
         }
         else {
             this.solveTimes.push(result);
+            if (this.solveTimes.length === 1) {
+                $("#timesBox").fadeIn("medium");
+            }
             if (window.location.href.toLowerCase().indexOf("competition") !== -1) {
                 $("<li><span class=\"timeText\">" + result + "</span></li>")
                     .hide()

@@ -110,7 +110,7 @@ namespace CSharpWebProject.Services
         public bool RemoveUser(int id, User user)
         {
             Competition competition = this.Context.Competitions.FirstOrDefault(c => c.Id == id);
-            if(competition == null)
+            if(competition == null || user == null)
             {
                 return false;
             }
