@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CSharpWebProject.Models.ViewModels.NewsPostViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>News: </h1>
+
+@foreach (var item in Model)
+{
+    <div class="card">
+        <h5 class="card-header">Featured</h5>
+        <div class="card-body">
+            <h5 class="card-title">@item.Title</h5>
+            <p class="card-text">@item.Content<p>
+            <p class="card-text float-right">@item.AuthorName<p>
+            <p class="card-text float-right">@item.Date<p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5 class="card-header">Title example</h5>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">asdasdijkoasijdijoasd asdasfafs<p>
+            <p class="card-text float-right">Gosho<p>
+            <p class="card-text float-right">15-15-15<p>
+        </div>
+    </div>
+}
+
+
+    <div class="card">
+        <h5 class="card-header">Title example</h5>
+        <div class="card-body">
+            <p class="card-text">asdasdijkoasijdijoasd asdasfafs</p>
+            <p class="float-right">--Gosho 08/15/2018</p>
+            <p class=""></p>
+        </div>
+    </div>

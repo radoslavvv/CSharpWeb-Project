@@ -55,7 +55,7 @@ namespace CSharpWebProject
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ICompetitionsService, CompetitionsService>();
             services.AddScoped<IAchievementsService, AchievementsService>();
-
+            services.AddScoped<INewsService, NewsService>();
 
             services.Configure<IdentityOptions>(options =>
             {

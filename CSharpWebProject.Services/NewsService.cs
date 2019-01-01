@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CSharpWebProject.Tests.Services
+namespace CSharpWebProject.Services
 {
-    public class NewsService : Service
+    public class NewsService : Service, INewsService
     {
         public NewsService(ApplicationDbContext context) : base(context)
         {

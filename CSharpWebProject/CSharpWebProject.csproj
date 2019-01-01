@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CSharpWebProject.Data\CSharpWebProject.Data.csproj" />
     <ProjectReference Include="..\CSharpWebProject.Services\CSharpWebProject.Services.csproj" />
+    <ProjectReference Include="..\CSharpWebProject.Tests\CSharpWebProject.Tests.csproj" />
   </ItemGroup>
 
 

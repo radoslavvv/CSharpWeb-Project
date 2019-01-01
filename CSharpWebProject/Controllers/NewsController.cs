@@ -4,16 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
-using CSharpWebProject.Tests.Services;
+using CSharpWebProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpWebProject.Controllers
 {
     public class NewsController : Controller
     {
-        private readonly NewsService newsService;
+        private readonly INewsService newsService;
 
-        public NewsController(NewsService newsService)
+        public NewsController(INewsService newsService)
         {
             this.newsService = newsService;
         }
