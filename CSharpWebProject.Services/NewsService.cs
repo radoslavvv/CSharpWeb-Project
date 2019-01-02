@@ -20,5 +20,37 @@ namespace CSharpWebProject.Services
 
             return posts;
         }
+
+        public bool AddNews(NewsPost post)
+        {
+            if(post == null)
+            {
+                return false;
+            }
+
+            this.Context.Posts.Add(post);
+            this.Context.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteNews(int postId)
+        {
+            NewsPost post = this.Context.Posts.FirstOrDefault(p => p.Id == postId);
+            if (post == null)
+            {
+                return false;
+            }
+
+            this.Context.Posts.Remove(post);
+            this.Context.SaveChanges();
+            return true;
+        }
+
+        public NewsPost GetNewsById(int postId)
+        {
+            NewsPost post = this.Context.Posts.FirstOrDefault(p => p.Id == postId);
+
+            return post;
+        }
     }
 }

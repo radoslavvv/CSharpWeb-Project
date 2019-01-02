@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using CSharpWebProject.Data;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class SolveTimesController : Controller
     {
         private readonly ApplicationDbContext _context;
