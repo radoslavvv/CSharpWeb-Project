@@ -59,11 +59,11 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content")] NewsPost newsPost)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,Date")] NewsPost newsPost)
         {
             if (ModelState.IsValid)
             {
-                newsPost.Date = DateTime.Now;
+                newsPost.AuthorId = this._context.Users.FirstOrDefault(u => u.UserName == "admin@admin.admin").Id;
                 _context.Add(newsPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "News", new { area = "" });

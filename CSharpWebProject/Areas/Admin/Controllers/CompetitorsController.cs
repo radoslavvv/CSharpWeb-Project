@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSharpWebProject.Data;
 using CSharpWebProject.Models.EntityModels;
+using CSharpWebProject.Models;
+using CSharpWebProject.Models.ViewModels;
 
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
@@ -21,10 +23,14 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         }
 
         // GET: Admin/Competitors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var applicationDbContext = _context.Competitors.Include(c => c.Competition).Include(c => c.User);
-            return View(await applicationDbContext.ToListAsync());
+            int pageSize = 15;
+            var competitors = _context.Competitors.Include(c => c.Competition).Include(c => c.User).ToList();
+
+            PaginatedList<Competitor> result = await PaginatedList<Competitor>.CreateAsync(competitors, page, pageSize);
+
+            return View(result);
         }
 
         // GET: Admin/Competitors/Details/5

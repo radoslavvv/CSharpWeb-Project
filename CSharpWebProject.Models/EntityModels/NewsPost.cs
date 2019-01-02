@@ -17,7 +17,7 @@ namespace CSharpWebProject.Models.EntityModels
         public virtual User Author { get; set; }
 
         [Required]
-        [MinLength(55)]
+        [MinLength(400)]
         public string Content { get; set; }
 
         public DateTime Date { get; set; }

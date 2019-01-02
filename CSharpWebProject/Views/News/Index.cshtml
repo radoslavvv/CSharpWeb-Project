@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CSharpWebProject.Models.ViewModels.NewsPostViewModel>
+﻿@using CSharpWebProject.Models
+@model PaginatedList<CSharpWebProject.Models.ViewModels.NewsPostViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,11 +10,10 @@
 @if (User.IsInRole("Administrator"))
 {
     <a href="/Admin/News/Create">
-        <div id="createNewPostButton" class="btn btn-outline-dark">
+        <div id="createNewPostButton" class="btn btn-primary">
             Create new
         </div>
     </a>
-
 
 }
 @foreach (var item in Model)
@@ -23,28 +23,22 @@
         <div class="card-body">
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">@item.Content<p>
-            <p class="card-text float-right">@item.AuthorName<p>
-            <p class="card-text float-right">@item.Date<p>
+            <p class="card-text float-right">-- @item.AuthorName /@item.Date/<p>
         </div>
     </div>
 
-    <div class="card">
-        <h5 class="card-header">Title example</h5>
-        <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">asdasdijkoasijdijoasd asdasfafs<p>
-            <p class="card-text float-right">Gosho<p>
-            <p class="card-text float-right">15-15-15<p>
-        </div>
-    </div>
 }
 
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
 
-<div class="card">
-    <h5 class="card-header">Title example</h5>
-    <div class="card-body">
-        <p class="card-text">asdasdijkoasijdijoasd asdasfafs</p>
-        <p class="float-right">--Gosho 08/15/2018</p>
-        <p class=""></p>
-    </div>
-</div>
+<a href="/News/Index?page=@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a href="/News/index?page=@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

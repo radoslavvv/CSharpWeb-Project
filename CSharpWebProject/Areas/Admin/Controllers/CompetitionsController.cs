@@ -29,9 +29,10 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         }
 
         // GET: Admin/Competitions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Competitions.Select(c => new CompetitionViewModel()
+            int pageSize = 15;
+            var competitions = _context.Competitions.Select(c => new CompetitionViewModel()
             {
                 StartDate = c.StartDate.ToString("dd/MM/yyyy"),
                 Id = c.Id,
@@ -41,20 +42,29 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 IsOpen = c.IsOpen,
                 Name = c.Name,
                 Sponsor = c.Sponsor
-            }).ToListAsync());
+            }).ToList();
+
+            PaginatedList<CompetitionViewModel> competitorsPage = await PaginatedList<CompetitionViewModel>.CreateAsync(competitions, page, pageSize);
+
+            return View(competitorsPage);
         }
 
         // GET: Admin/Competitors
-        public IActionResult Competitors(int id)
+        public async Task<IActionResult> Competitors(int id, int page = 1)
         {
-            return View(_context.Competitions.FirstOrDefault(c => c.Id == id).Competitors.Select(c => new CompetitorViewModel()
+            int pageSize = 15;
+            var competitors = _context.Competitions.FirstOrDefault(c => c.Id == id).Competitors.Select(c => new CompetitorViewModel()
             {
                 Id = c.Id,
                 BestTime = c.BestTime == null ? "N/A" : c.BestTime.Result.ToString("mm:ss:fff"),
                 BestTimeDate = c.BestTime == null ? "N/A" : c.BestTime.Date.ToString("dd/MM/yyyy"),
                 Name = c.User.UserName,
                 CompetitionId = id
-            }).ToList());
+            }).ToList();
+
+            PaginatedList<CompetitorViewModel> competitorsPage = await PaginatedList<CompetitorViewModel>.CreateAsync(competitors, page, pageSize);
+
+            return View(competitorsPage);
         }
 
         public IActionResult RemoveUser(int competitionId, int competitorId)

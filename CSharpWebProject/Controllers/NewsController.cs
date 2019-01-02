@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CSharpWebProject.Models;
 using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
 using CSharpWebProject.Services;
@@ -18,18 +19,21 @@ namespace CSharpWebProject.Controllers
             this.newsService = newsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int pageSize = 10;
             List<NewsPostViewModel> posts = this.newsService.GetAllPosts()
                 .Select(n=> new NewsPostViewModel()
             {
                 AuthorName = n.Author.UserName,
-                Content = n.Content.Substring(0,25) + "...",
+                Content = n.Content,
                 Date = n.Date.ToString("dd/MM/yyyy"),
                 Title = n.Title
             }).ToList();
 
-            return View(posts);
+            PaginatedList<NewsPostViewModel> newsPage = await PaginatedList<NewsPostViewModel>.CreateAsync(posts, page, pageSize);
+
+            return View(newsPage);
         }
     }
 }

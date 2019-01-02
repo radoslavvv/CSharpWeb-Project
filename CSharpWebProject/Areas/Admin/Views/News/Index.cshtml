@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CSharpWebProject.Models.ViewModels.NewsPostViewModel>
+﻿@using CSharpWebProject.Models
+@model PaginatedList<CSharpWebProject.Models.ViewModels.NewsPostViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,18 +14,17 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorName)
+                Author
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Content)
+                Content
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Date
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -52,3 +52,17 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a href="/Admin/News/Index?page=@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a href="/Admin/News/Index?page=@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
