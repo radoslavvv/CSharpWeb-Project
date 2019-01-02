@@ -6,6 +6,8 @@ namespace CSharpWebProject.Models.ViewModels
 {
     public class NewsPostViewModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string AuthorName { get; set; }

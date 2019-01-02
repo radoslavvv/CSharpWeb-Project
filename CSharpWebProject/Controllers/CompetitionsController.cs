@@ -46,7 +46,7 @@ namespace CSharpWebProject.Controllers
             List<CompetitionViewModel> competitions = user.Competitions.Select(c => new CompetitionViewModel()
             {
                 Competitors = c.Competitors,
-                Description = c.Description,
+                Description = c.Description.Substring(0, 50) + "...",
                 EndDate = c.EndDate.ToString("dd/MM/yyyy"),
                 Id = c.Id,
                 Name = c.Name,
@@ -91,13 +91,13 @@ namespace CSharpWebProject.Controllers
         public IActionResult Timer(int id)
         {
             Competition competition = this.competitionsService.GetCompetitionById(id);
-            if(competition == null)
+            if (competition == null)
             {
                 return NotFound();
             }
 
             string userId = User.Identity.Name;
-            if(competition.Competitors.Any(c => c.User.UserName == userId) && competition.IsOpen)
+            if (competition.Competitors.Any(c => c.User.UserName == userId) && competition.IsOpen)
             {
                 CompetitionViewModel competitionViewModel = new CompetitionViewModel()
                 {
@@ -122,7 +122,7 @@ namespace CSharpWebProject.Controllers
 
             this.competitionsService.RemoveUser(id, user);
             Competition competition = this.competitionsService.GetCompetitionById(id);
-            
+
             return RedirectToAction("Index");
         }
 
@@ -149,7 +149,7 @@ namespace CSharpWebProject.Controllers
                 .Select(c => new CompetitionViewModel()
                 {
                     Id = c.Id,
-                    Description = c.Description,
+                    Description = c.Description.Substring(0, 50) + "...",
                     Competitors = c.Competitors,
                     EndDate = c.EndDate.ToString("dd/MM/yyyy"),
                     StartDate = c.StartDate.ToString("dd/MM/yyyy"),
@@ -159,7 +159,7 @@ namespace CSharpWebProject.Controllers
             List<CompetitionViewModel> closedCompetitions = this.competitionsService.GetAllClosedCompetitions().Select(c => new CompetitionViewModel()
             {
                 Id = c.Id,
-                Description = c.Description,
+                Description = c.Description.Substring(0, 50) + "...",
                 Competitors = c.Competitors,
                 EndDate = c.EndDate.ToString("dd/MM/yyyy"),
                 StartDate = c.StartDate.ToString("dd/MM/yyyy"),
@@ -179,7 +179,7 @@ namespace CSharpWebProject.Controllers
         public async Task<IActionResult> Details(int id, int page = 1)
         {
             Competition competition = this.competitionsService.GetCompetitionById(id);
-            if(competition == null)
+            if (competition == null)
             {
                 return NotFound();
             }

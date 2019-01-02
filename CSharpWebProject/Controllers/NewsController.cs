@@ -20,7 +20,8 @@ namespace CSharpWebProject.Controllers
 
         public IActionResult Index()
         {
-            List<NewsPostViewModel> posts = this.newsService.GetAllPosts().Select(n=> new NewsPostViewModel()
+            List<NewsPostViewModel> posts = this.newsService.GetAllPosts()
+                .Select(n=> new NewsPostViewModel()
             {
                 AuthorName = n.Author.UserName,
                 Content = n.Content.Substring(0,25) + "...",

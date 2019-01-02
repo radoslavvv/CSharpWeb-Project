@@ -25,8 +25,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // GET: Admin/NewsPosts
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Posts.Include(n => n.Author);
-            return View(await applicationDbContext.ToListAsync());
+            return RedirectToAction("Index", "News", new { area = "" });
         }
 
         // GET: Admin/NewsPosts/Details/5
@@ -60,13 +59,14 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,AuthorId,Content,Date")] NewsPost newsPost)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content")] NewsPost newsPost)
         {
             if (ModelState.IsValid)
             {
+                newsPost.Date = DateTime.Now;
                 _context.Add(newsPost);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "News", new { area = "" });
             }
             ViewData["AuthorId"] = new SelectList(_context.RubikUsers, "Id", "Id", newsPost.AuthorId);
             return View(newsPost);
@@ -119,7 +119,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "News", new { area = "" });
             }
             ViewData["AuthorId"] = new SelectList(_context.RubikUsers, "Id", "Id", newsPost.AuthorId);
             return View(newsPost);
@@ -152,7 +152,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             var newsPost = await _context.Posts.FindAsync(id);
             _context.Posts.Remove(newsPost);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "News", new { area = "" });
         }
 
         private bool NewsPostExists(int id)

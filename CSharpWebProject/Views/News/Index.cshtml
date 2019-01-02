@@ -6,6 +6,16 @@
 
 <h1>News: </h1>
 
+@if (User.IsInRole("Administrator"))
+{
+    <a href="/Admin/News/Create">
+        <div id="createNewPostButton" class="btn btn-outline-dark">
+            Create new
+        </div>
+    </a>
+
+
+}
 @foreach (var item in Model)
 {
     <div class="card">
@@ -30,11 +40,11 @@
 }
 
 
-    <div class="card">
-        <h5 class="card-header">Title example</h5>
-        <div class="card-body">
-            <p class="card-text">asdasdijkoasijdijoasd asdasfafs</p>
-            <p class="float-right">--Gosho 08/15/2018</p>
-            <p class=""></p>
-        </div>
+<div class="card">
+    <h5 class="card-header">Title example</h5>
+    <div class="card-body">
+        <p class="card-text">asdasdijkoasijdijoasd asdasfafs</p>
+        <p class="float-right">--Gosho 08/15/2018</p>
+        <p class=""></p>
     </div>
+</div>

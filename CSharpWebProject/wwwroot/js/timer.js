@@ -81,9 +81,8 @@ var Timer = /** @class */ (function () {
         var result = minutes + ":" + seconds + ":" + milliseconds;
         if (window.location.href.toLowerCase().indexOf("competition") !== -1 &&
             this.solveTimes.length === 5) {
-            $("#timesAlert").alert().fadeIn();
-            // tODO: Add warning
-            console.log("max reached");
+            // @ts-ignore
+            $("#timesAlert").text("You can't submit more than five times!").alert().fadeIn();
         }
         else {
             this.solveTimes.push(result);
@@ -186,12 +185,7 @@ var Timer = /** @class */ (function () {
             },
             context: document.body
         }).done(function (e) {
-            window.location.href = "/Home/Index";
-            // if (gotAchievemnt) {
-            //   this.showAchievement();
-            // } else {
-            //  
-            // }
+            window.location.href = "/Competitions/";
         });
         $("#times").empty();
         this.solveTimes = [];
@@ -202,10 +196,24 @@ var Timer = /** @class */ (function () {
     Timer.prototype.attachEvents = function () {
         var _this = this;
         $("#saveTimesButton").on("click", function () {
-            _this.addTimes();
+            if (window.location.href.toLowerCase().indexOf("competition") === -1 &&
+                _this.solveTimes.length === 0) {
+                // @ts-ignore
+                $("#timesAlert").text("You must submit at least one time!").alert().fadeIn();
+            }
+            else {
+                _this.addTimes();
+            }
         });
         $("#submitTimesButton").on("click", function () {
-            _this.submitTimes();
+            if (window.location.href.toLowerCase().indexOf("competition") !== -1 &&
+                _this.solveTimes.length === 0) {
+                // @ts-ignore
+                $("#timesAlert").text("You must submit at least one time!").alert().fadeIn();
+            }
+            else {
+                _this.submitTimes();
+            }
         });
         $(document).on("keydown", function (e) {
             if (e.keyCode === 32 && !_this.spaceIsPressed && !_this.timerFinished) {

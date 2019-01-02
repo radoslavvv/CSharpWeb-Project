@@ -7,7 +7,6 @@
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Model.Description</p>
         <h6 class="text-right">Sponsor: @Model.Sponsor</h6>
-        @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
         <h6 class="text-center">Competitors Count: @Model.Competitors.Count</h6>
 
         <table class="table table-hover">
@@ -51,17 +50,12 @@
             var prevDisabled = !Model.Competitors.HasPreviousPage ? "disabled" : "";
             var nextDisabled = !Model.Competitors.HasNextPage ? "disabled" : "";
         }
-
-        @*<a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex - 1)"
-           class="btn btn-default @prevDisabled">
-            Previous
-        </a>*@
         <a class="btn btn-default @prevDisabled" asp-action="Details" asp-controller="Competitions" asp-route-id="@Model.Id" asp-route-page="@(Model.Competitors.PageIndex - 1)">Previous</a>
         <a class="btn btn-default @nextDisabled" asp-action="Details" asp-controller="Competitions" asp-route-id="@Model.Id" asp-route-page="@(Model.Competitors.PageIndex + 1)">Next</a>
-        @*<a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex + 1)"
-           class="btn btn-default @nextDisabled">
-            Next
-        </a>*@
+
+        <div class="text-center">
+            <a href="/Competitions/Index" class="btn btn-dark goBackButton">Go Back</a>
+        </div>
     </div>
 </div>
 

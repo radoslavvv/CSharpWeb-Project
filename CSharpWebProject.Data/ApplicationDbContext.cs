@@ -19,8 +19,6 @@ namespace CSharpWebProject.Data
 
         public DbSet<Competitor> Competitors { get; set; }
 
-        public DbSet<Winner> Winners { get; set; }
-
         public DbSet<NewsPost> Posts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

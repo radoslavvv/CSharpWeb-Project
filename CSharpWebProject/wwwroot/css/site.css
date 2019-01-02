@@ -63,7 +63,9 @@ body {
 }
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
+.card {
+    margin: 15px;
+}
 body {
     background: #209dd2;
     font-family: Lato;
@@ -177,4 +179,13 @@ body {
     width: 50px;
     /* margin: 15px; */
     margin-right: 20px;
+}
+
+#createNewPostButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.goBackButton{
+    float:right;
 }

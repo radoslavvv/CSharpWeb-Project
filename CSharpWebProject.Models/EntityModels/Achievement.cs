@@ -10,10 +10,15 @@ namespace CSharpWebProject.Models.EntityModels
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        [MinLength(15)]
         public string Name { get; set; }
 
+        [Required]
+        [MinLength(15)]
         public string Description { get; set; }
 
+        [Required]
         public string Category { get; set; }
 
         public virtual List<UserAchievement> Users { get; set; }

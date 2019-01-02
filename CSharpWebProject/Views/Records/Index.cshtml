@@ -4,11 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Leaderboard:</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -58,12 +55,8 @@
                         <a href="/Admin/SolveTimes/Details?id=@item.Id" class="btn btn-dark">Details</a> | 
                         <a href="/Admin/SolveTimes/Delete?id=@item.Id" class="btn btn-danger">Delete</a>
 
-                        @*<a asp-area="Admin" asp-controller="RecordSolveTimesController" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-area="Admin" asp-controller="RecordSolveTimesController" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-area="Admin" asp-controller="RecordSolveTimesController" asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                    </td>
+                       </td>
                     }
-
                 </tr>
             }
         }
