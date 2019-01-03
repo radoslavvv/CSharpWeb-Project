@@ -63,18 +63,21 @@
                class="btn btn-default @nextDisabled">
                 Next
             </a>
-        <div class="text-center">
+            <div class="text-center">
 
-            @if (Model.Competitors.Any(c => c.Name == User.Identity.Name))
-            {
-                <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
-            }
-            else
-            {
-                <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
-            }
+                @if (Model.Competitors.Any(c => c.Name == User.Identity.Name))
+                {
+                    if (Model.Competitors.FirstOrDefault(c => c.Name == User.Identity.Name).BestTime == null)
+                    {
+                        <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
+                    }
+                }
+                else
+                {
+                    <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
+                }
 
-            <a href="/Competitions/Index" class="btn btn-dark goBackButton">Go Back</a>
-        </div>
+                <a href="/Competitions/Index" class="btn btn-dark goBackButton">Go Back</a>
+            </div>
     </div>
 </div>

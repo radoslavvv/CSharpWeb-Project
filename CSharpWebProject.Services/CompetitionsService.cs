@@ -64,6 +64,7 @@ namespace CSharpWebProject.Services
             return competitors;
         }
 
+        // Tested
         public bool JoinUser(int competitionId, User user)
         {
             Competition competition = this.Context
@@ -106,7 +107,7 @@ namespace CSharpWebProject.Services
             }
         }
 
-
+        // Tested
         public bool RemoveUser(int id, User user)
         {
             Competition competition = this.Context.Competitions.FirstOrDefault(c => c.Id == id);
@@ -127,6 +128,7 @@ namespace CSharpWebProject.Services
 
             return true;
         }
+
 
         public bool AddTimes(List<CompetiveSolveTime> solveTimes, string userId, int competitionId)
         {

@@ -25,11 +25,14 @@ namespace CSharpWebProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category");
+                    b.Property<string>("Category")
+                        .IsRequired();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -42,15 +45,18 @@ namespace CSharpWebProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<DateTime>("EndDate");
 
                     b.Property<bool>("IsOpen");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Sponsor");
+                    b.Property<string>("Sponsor")
+                        .IsRequired();
 
                     b.Property<DateTime>("StartDate");
 
@@ -121,11 +127,13 @@ namespace CSharpWebProject.Data.Migrations
 
                     b.Property<string>("AuthorId");
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .IsRequired();
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -166,27 +174,6 @@ namespace CSharpWebProject.Data.Migrations
                     b.HasIndex("AchievementId");
 
                     b.ToTable("UserAchievement");
-                });
-
-            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Winner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompetitionId");
-
-                    b.Property<int>("Place");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetitionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Winners");
                 });
 
             modelBuilder.Entity("CSharpWebProject.Models.User", b =>
@@ -411,18 +398,6 @@ namespace CSharpWebProject.Data.Migrations
                         .WithMany("Achievements")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CSharpWebProject.Models.EntityModels.Winner", b =>
-                {
-                    b.HasOne("CSharpWebProject.Models.EntityModels.Competition", "Competition")
-                        .WithMany()
-                        .HasForeignKey("CompetitionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CSharpWebProject.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

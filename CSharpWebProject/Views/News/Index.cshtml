@@ -34,11 +34,15 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<a href="/News/Index?page=@(Model.PageIndex - 1)"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a href="/News/index?page=@(Model.PageIndex + 1)"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
+@if (Model.Count > 0)
+{
+    <a href="/News/Index?page=@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a href="/News/index?page=@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+}
+

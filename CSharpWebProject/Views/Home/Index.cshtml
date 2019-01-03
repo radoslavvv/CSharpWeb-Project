@@ -8,7 +8,7 @@
 <div>
     <div id="timer">
         <div id="minutes">00</div>.
-        <div id="seconds">00</div> .
+        <div id="seconds">00</div>.
         <div id="milliseconds">000</div>
     </div>
     <div id="timesAlert" class="text-center alert alert-danger" role="alert">
@@ -20,7 +20,15 @@
             <div id="timesContainer" class="card-body text-dark">
                 <ol id="times"></ol>
             </div>
-            <button id="saveTimesButton" type="button" class="btn btn-outline-dark">Save Times</button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button id="saveTimesButton" type="button" class="btn btn-outline-dark">Save Times</button>
+
+            }
+            else
+            {
+                <button id="saveTimesButton" type="button" disabled class="btn btn-outline-dark">Save Times</button>
+            }
         </div>
     </div>
 </div>

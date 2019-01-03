@@ -32,7 +32,8 @@
         {
             {
                 var item = Model[i - 1];
-                <tr>
+                var rowColor = User.Identity.Name == item.Username ? "table-success" : "";
+                <tr class="@rowColor">
                     <td>
                         @Html.DisplayFor(modelItem => i)
                     </td>
@@ -50,12 +51,12 @@
                     </td>
                     @if (User.IsInRole("Administrator"))
                     {
-                    <td>
-                        <a href="/Admin/SolveTimes/Edit?id=@item.Id" class="btn btn-outline-dark">Edit</a> | 
-                        <a href="/Admin/SolveTimes/Details?id=@item.Id" class="btn btn-dark">Details</a> | 
-                        <a href="/Admin/SolveTimes/Delete?id=@item.Id" class="btn btn-danger">Delete</a>
+                        <td>
+                            <a href="/Admin/SolveTimes/Edit?id=@item.Id" class="btn btn-outline-dark">Edit</a> |
+                            <a href="/Admin/SolveTimes/Details?id=@item.Id" class="btn btn-dark">Details</a> |
+                            <a href="/Admin/SolveTimes/Delete?id=@item.Id" class="btn btn-danger">Delete</a>
 
-                       </td>
+                        </td>
                     }
                 </tr>
             }

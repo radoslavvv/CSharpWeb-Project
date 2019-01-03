@@ -172,5 +172,203 @@ namespace CSharpWebProject.Tests.Services
             int closedCompetitionsCount = this.dbContext.Competitions.Where(c => !c.IsOpen).Count();
             Assert.AreEqual(1, closedCompetitionsCount);
         }
+
+        [Test]
+        public void JoinUserActuallyAddsTheUser()
+        {
+            int competitionId = 1;
+            User user = new User()
+            {
+                Id = "userid"
+            };
+            Competition competition = new Competition()
+            {
+                Id = 1
+            };
+
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            this.competitionsService.JoinUser(competitionId, user);
+
+            int competitors = this.dbContext.Competitions.FirstOrDefault(c => c.Id == competitionId).Competitors.Count;
+            Assert.AreEqual(1, competitors);
+        }
+
+        [Test]
+        public void JoinUserReturnsTrue()
+        {
+            int competitionId = 1;
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = 1
+            };
+
+            this.dbContext.Users.Add(user);
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            bool result=  this.competitionsService.JoinUser(competitionId, user);
+            Assert.AreEqual(true, result);
+        }
+
+        [Test]
+        public void JoinUserReturnsFalseIfCompetitionIsInvalid()
+        {
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = 1
+            };
+
+            this.dbContext.Users.Add(user);
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            bool result = this.competitionsService.JoinUser(11555, user);
+            Assert.AreEqual(false, result);
+        }
+
+
+        [Test]
+        public void JoinUserReturnsFalseIfUserIsNotInTheDatabase()
+        {
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = 1
+            };
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            bool result = this.competitionsService.JoinUser(11555, user);
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void RemoveUserActuallyRemovesUser()
+        {
+            int competitonId = 1;
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = competitonId
+            };
+
+            this.dbContext.Users.Add(user);
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            this.competitionsService.JoinUser(competitonId, user);
+            this.competitionsService.RemoveUser(competitonId, user);
+
+            int competitors = this.dbContext.Competitions.FirstOrDefault(c => c.Id == competitonId).Competitors.Count;
+            Assert.AreEqual(0, competitors);
+        }
+
+        [Test]
+        public void RemoveUserReturnsFalseIfUserIsNull()
+        {
+            int competitonId = 1;
+            User user = null;
+
+            Competition competition = new Competition()
+            {
+                Id = competitonId
+            };
+
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            bool result = this.competitionsService.RemoveUser(competitonId, user);
+           
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void RemoveUserReturnsFalseIfCompetitionIsInvalid()
+        {
+            int competitonId = 1;
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = competitonId
+            };
+
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            bool result = this.competitionsService.RemoveUser(4489489, user);
+
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void RemoveUserReturnsFalseIfUserIsNotInCompetition()
+        {
+            int competitonId = 1;
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = competitonId
+            };
+
+            this.dbContext.Users.Add(user);
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            bool result = this.competitionsService.RemoveUser(competitonId, user);
+
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void RemoveUserReturnsTrueWhenUserIsRemoved()
+        {
+            int competitonId = 1;
+            User user = new User()
+            {
+                Id = "userid"
+            };
+
+            Competition competition = new Competition()
+            {
+                Id = competitonId
+            };
+
+            this.dbContext.Users.Add(user);
+            this.dbContext.Competitions.Add(competition);
+            this.dbContext.SaveChanges();
+
+            this.competitionsService.JoinUser(competitonId, user);
+            bool result = this.competitionsService.RemoveUser(competitonId, user);
+
+            Assert.AreEqual(true, result);
+        }
     }
 }

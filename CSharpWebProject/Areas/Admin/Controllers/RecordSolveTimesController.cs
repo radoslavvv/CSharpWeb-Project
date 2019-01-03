@@ -51,7 +51,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // GET: Admin/RecordSolveTimes/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id", solveTime.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", solveTime.UserId);
             return View(solveTime);
         }
 
@@ -85,7 +85,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id", solveTime.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", solveTime.UserId);
             return View(solveTime);
         }
 
@@ -121,7 +121,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id", solveTime.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", solveTime.UserId);
             return View(solveTime);
         }
 

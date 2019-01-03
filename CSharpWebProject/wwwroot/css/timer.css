@@ -4,11 +4,11 @@
 }
 
 #timer div{
-    min-width: 150px;;
+    min-width: 25px;;
     display: inline-block;
 }
 
-#minutes{
+/*#minutes{
     width: 150px;
 }
 
@@ -18,7 +18,7 @@
 
 #milliseconds{
     width: 250px;
-}
+}*/
 
 #controlButtons{
     text-align: center;
@@ -57,7 +57,16 @@
 #timesContainerTitle {
     margin-bottom: 0px;
 }
-
+#minutes{
+    margin-left: -25px;
+}
+#milliseconds {
+    margin-left: -25px;
+    margin-right: -25px;
+}
+#seconds {
+    margin-left: -25px;
+}
 #statsBox {
     border-radius: 25px;
 }

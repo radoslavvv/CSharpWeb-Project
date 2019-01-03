@@ -59,7 +59,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["CompetitionId"] = new SelectList(_context.Competitions, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -77,7 +77,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CompetitionId"] = new SelectList(_context.Competitions, "Id", "Id", competitor.CompetitionId);
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id", competitor.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", competitor.UserId);
             return View(competitor);
         }
 
@@ -95,7 +95,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["CompetitionId"] = new SelectList(_context.Competitions, "Id", "Id", competitor.CompetitionId);
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id", competitor.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", competitor.UserId);
             return View(competitor);
         }
 
@@ -132,7 +132,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CompetitionId"] = new SelectList(_context.Competitions, "Id", "Id", competitor.CompetitionId);
-            ViewData["UserId"] = new SelectList(_context.RubikUsers, "Id", "Id", competitor.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", competitor.UserId);
             return View(competitor);
         }
 

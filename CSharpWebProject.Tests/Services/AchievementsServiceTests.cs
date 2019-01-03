@@ -98,49 +98,6 @@ namespace CSharpWebProject.Tests.Services
             this.dbContext.Users.FirstOrDefault(u => u.Id == "id").Achievements = achievements;
             this.dbContext.SaveChanges();
         }
+
     }
 }
-
-//public MyAchievementsViewModel GetAllAchievements(string username)
-//{
-//    User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
-//    List<AchievementViewModel> timesAchivements = this
-//        .Context
-//        .Achievements
-//        .Where(c => c.Category == "Time").Select(a => new AchievementViewModel()
-//        {
-//            Category = a.Category,
-//            Description = a.Description,
-//            Id = a.Id,
-//            Name = a.Name,
-//        }).ToList();
-
-//    List<AchievementViewModel> competitionAchivements = this
-//       .Context
-//       .Achievements
-//       .Where(c => c.Category == "Competition").Select(a => new AchievementViewModel()
-//       {
-//           Category = a.Category,
-//           Description = a.Description,
-//           Id = a.Id,
-//           Name = a.Name,
-//       }).ToList();
-
-//    List<AchievementViewModel> usersAchievements = user.Achievements.Select(a => new AchievementViewModel()
-//    {
-//        Category = a.Achievement.Category,
-//        Description = a.Achievement.Description,
-//        Id = a.Achievement.Id,
-//        Name = a.Achievement.Name,
-//    }).ToList();
-
-//    MyAchievementsViewModel result = new MyAchievementsViewModel()
-//    {
-//        CompetitionAchivements = competitionAchivements,
-//        TimesAchivements = timesAchivements,
-//        UserAchievements = usersAchievements
-//    };
-
-//    return result;
-//}
-//    }

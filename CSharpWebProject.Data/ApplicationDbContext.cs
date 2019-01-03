@@ -7,7 +7,7 @@ namespace CSharpWebProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public DbSet<User> RubikUsers { get; set; }
+        //public DbSet<User> RubikUsers { get; set; }
 
         public DbSet<Achievement> Achievements { get; set; }
 

@@ -16,11 +16,11 @@
             <p class="card-text">@openCompetition.Description</p>
             @if (openCompetition.Competitors.Any(c => c.User.UserName == User.Identity.Name))
             {
-                if (!openCompetition.Competitors.FirstOrDefault(c => c.User.UserName == User.Identity.Name).SubmittedTimes)
+                if (openCompetition.Competitors.FirstOrDefault(c => c.User.UserName == User.Identity.Name).BestTime == null)
                 {
                     <a href="/Competitions/Timer?id=@openCompetition.Id" class="btn btn-primary">Enter</a>
+                    <a href="/Competitions/Leave?id=@openCompetition.Id" class=" btn btn-primary">Leave Competition</a>
                 }
-                <a href="/Competitions/Leave?id=@openCompetition.Id" class=" btn btn-primary">Leave Competition</a>
             }
             else
             {
@@ -31,7 +31,7 @@
                 <a href="Admin/Competitions/Close?id=@openCompetition.Id" class="btn btn-danger">Close Competition</a>
             }
 
-            </div>
+        </div>
         <div class="card-footer text-muted">
             End Date: @openCompetition.EndDate
         </div>

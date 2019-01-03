@@ -45,6 +45,7 @@ namespace CSharpWebProject.Services
             User user = this.Context
                 .Users
                 .FirstOrDefault(u => u.UserName == username);
+
             if(user == null)
             {
                 return false;
@@ -88,6 +89,11 @@ namespace CSharpWebProject.Services
             User user = this.Context
                 .Users
                 .FirstOrDefault(u => u.UserName == username);
+
+            if (user == null)
+            {
+                return false;
+            }
 
             int bestTimeInSeconds = user
                 .SolveTimes

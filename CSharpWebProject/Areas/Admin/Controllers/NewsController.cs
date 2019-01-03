@@ -50,7 +50,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // GET: Admin/NewsPosts/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.RubikUsers, "Id", "Id");
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "News", new { area = "" });
             }
-            ViewData["AuthorId"] = new SelectList(_context.RubikUsers, "Id", "Id", newsPost.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", newsPost.AuthorId);
             return View(newsPost);
         }
 
@@ -85,7 +85,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.RubikUsers, "Id", "Id", newsPost.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", newsPost.AuthorId);
             return View(newsPost);
         }
 
@@ -121,7 +121,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index", "News", new { area = "" });
             }
-            ViewData["AuthorId"] = new SelectList(_context.RubikUsers, "Id", "Id", newsPost.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", newsPost.AuthorId);
             return View(newsPost);
         }
 

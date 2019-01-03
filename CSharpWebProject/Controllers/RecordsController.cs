@@ -21,17 +21,17 @@ namespace CSharpWebProject.Controllers
         {
             List<RecordSolveTimeViewModel> records = this.timesService
                 .GetAllTimes()
-                .Where(t=>t.Type != "Practice")
-                .OrderBy(t => t.Result)
-                .Take(10)
-                .Select(s=> new RecordSolveTimeViewModel()
-                    {
-                        Date = s.Date.ToString("dd/MM/yyyy"),
-                        Result = s.Result.ToString("mm:ss.fff"),
-                        Type= s.Type,
-                        Username = s.User.UserName,
-                        Id = s.Id
-                    })
+                .Where(t => t.Type != "Practice")
+                .OrderBy(r => r.Result.TimeOfDay)
+                .Take(11)
+                .Select(s => new RecordSolveTimeViewModel()
+                {
+                    Date = s.Date.ToString("dd/MM/yyyy"),
+                    Result = s.Result.ToString("mm:ss.fff"),
+                    Type = s.Type,
+                    Username = s.User.UserName,
+                    Id = s.Id
+                })
                 .ToList();
 
             return View(records);
