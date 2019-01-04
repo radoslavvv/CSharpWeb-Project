@@ -15,7 +15,7 @@ namespace CSharpWebProject.Models.EntityModels
         public int Id { get; set; }
 
         [Required]
-        [MinLength(15)]
+        [MinLength(10)]
         public string Name { get; set; }
 
         [Required]
@@ -31,7 +31,6 @@ namespace CSharpWebProject.Models.EntityModels
         public DateTime EndDate { get; set; }
 
         [Required]
-        [MinLength(15)]
         public string Sponsor { get; set; }
 
         [Required]

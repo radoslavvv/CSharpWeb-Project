@@ -16,10 +16,11 @@ namespace CSharpWebProject.Controllers
     [Authorize]
     public class CompetitionsController : Controller
     {
-        private ICompetitionsService competitionsService;
-        private IUsersService usersService;
-        private IAchievementsService achievementsService;
-        private ITimesService timesService;
+        private readonly ICompetitionsService competitionsService;
+        private readonly IUsersService usersService;
+        private readonly IAchievementsService achievementsService;
+        private readonly ITimesService timesService;
+
         public CompetitionsController(ICompetitionsService competitionsService, IUsersService usersService, IAchievementsService achievementsService, ITimesService timesService)
         {
             this.competitionsService = competitionsService;

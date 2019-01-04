@@ -16,7 +16,9 @@ namespace CSharpWebProject.Services
 
         public List<NewsPost> GetAllPosts()
         {
-            List<NewsPost> posts = this.Context.Posts.ToList();
+            List<NewsPost> posts = this.Context
+                .Posts
+                .ToList();
 
             return posts;
         }
@@ -35,7 +37,10 @@ namespace CSharpWebProject.Services
 
         public bool DeleteNews(int postId)
         {
-            NewsPost post = this.Context.Posts.FirstOrDefault(p => p.Id == postId);
+            NewsPost post = this.Context
+                .Posts
+                .FirstOrDefault(p => p.Id == postId);
+
             if (post == null)
             {
                 return false;
@@ -48,7 +53,9 @@ namespace CSharpWebProject.Services
 
         public NewsPost GetNewsById(int postId)
         {
-            NewsPost post = this.Context.Posts.FirstOrDefault(p => p.Id == postId);
+            NewsPost post = this.Context
+                .Posts
+                .FirstOrDefault(p => p.Id == postId);
 
             return post;
         }

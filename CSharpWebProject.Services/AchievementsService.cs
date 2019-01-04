@@ -17,8 +17,14 @@ namespace CSharpWebProject.Services
 
         public bool AddAchievement(string username, string achievementName)
         {
-            Achievement achievement = this.Context.Achievements.FirstOrDefault(a => a.Name == achievementName);
-            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            Achievement achievement = this.Context
+                .Achievements
+                .FirstOrDefault(a => a.Name == achievementName);
+
+            User user = this
+                .Context
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
 
             if(user == null || achievement == null)
             {
@@ -124,28 +130,13 @@ namespace CSharpWebProject.Services
             {
                 this.AddAchievement(username, "Achieve Time Under 30 Seconds");
             }
-            //if (bestTimeInSeconds < 30)
-            //{
-            //    this.AddAchievement(username, "Achieve Time Under 30 Seconds");
-            //    gotAchievement = true;
-            //}
-            //if (bestTimeInSeconds < 20)
-            //{
-            //    this.AddAchievement(username, "Achieve Time Under 20 Seconds");
-            //    gotAchievement = true;
-            //}
-            //if (bestTimeInSeconds < 10)
-            //{
-            //    this.AddAchievement(username, "Achieve Time Under 10 Seconds");
-            //    gotAchievement = true;
-            //}
 
             return gotAchievement;
         }
 
         public void SeedDabase()
         {
-            var achievements = new List<Achievement>()
+            List<Achievement> achievements = new List<Achievement>()
             {
                 new Achievement()
                 {
@@ -221,7 +212,10 @@ namespace CSharpWebProject.Services
         }
         public MyAchievementsViewModel GetAllAchievements(string username)
         {
-            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            User user = this.Context
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
+
             if(user == null)
             {
                 return new MyAchievementsViewModel();

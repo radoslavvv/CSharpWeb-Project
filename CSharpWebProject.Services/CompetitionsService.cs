@@ -15,7 +15,6 @@ namespace CSharpWebProject.Services
         {
         }
 
-        // Tested
         public ICollection<Competition> GetAllOpenCompetitions()
         {
             List<Competition> openCompetitions = this.Context
@@ -26,7 +25,6 @@ namespace CSharpWebProject.Services
             return openCompetitions;
         }
 
-        // Tested
         public ICollection<Competition> GetAllClosedCompetitions()
         {
             List<Competition> closedCompetitions = this.Context
@@ -37,15 +35,16 @@ namespace CSharpWebProject.Services
             return closedCompetitions;
         }
 
-        // Tested
         public Competition GetCompetitionById(int id)
         {
-            Competition competiton = this.Context.Competitions.FirstOrDefault(c => c.Id == id);
+            Competition competiton = this.Context
+                .Competitions
+                .FirstOrDefault(c => c.Id == id);
 
             return competiton;
         }
 
-        // Tested
+
         public List<Competitor> GetCompetitionCompetitors(int id)
         {
             Competition competition = this.Context
@@ -64,7 +63,7 @@ namespace CSharpWebProject.Services
             return competitors;
         }
 
-        // Tested
+
         public bool JoinUser(int competitionId, User user)
         {
             Competition competition = this.Context
@@ -97,7 +96,6 @@ namespace CSharpWebProject.Services
             return true;
         }
 
-        //Tested
         public void CreateCompetition(Competition competition)
         {
             if (competition != null)
@@ -107,16 +105,22 @@ namespace CSharpWebProject.Services
             }
         }
 
-        // Tested
         public bool RemoveUser(int id, User user)
         {
-            Competition competition = this.Context.Competitions.FirstOrDefault(c => c.Id == id);
+            Competition competition = this
+                .Context
+                .Competitions
+                .FirstOrDefault(c => c.Id == id);
+
             if(competition == null || user == null)
             {
                 return false;
             }
 
-            Competitor competitor = competition.Competitors.FirstOrDefault(c => c.User.UserName == user.UserName);
+            Competitor competitor = competition
+                .Competitors
+                .FirstOrDefault(c => c.User.UserName == user.UserName);
+
             if(competitor == null)
             {
                 return false;
@@ -135,6 +139,7 @@ namespace CSharpWebProject.Services
             Competition competition = this.Context
                 .Competitions
                 .FirstOrDefault(c => c.Id == competitionId);
+
             if(competition == null)
             {
                 return false;
@@ -149,7 +154,10 @@ namespace CSharpWebProject.Services
                 return false;
             }
 
-            CompetiveSolveTime bestTime = solveTimes.OrderByDescending(t => t.Result).FirstOrDefault();
+            CompetiveSolveTime bestTime = solveTimes
+                .OrderByDescending(t => t.Result)
+                .FirstOrDefault();
+
             if(bestTime == null)
             {
                 return false;
@@ -163,13 +171,13 @@ namespace CSharpWebProject.Services
             return true;
         }
 
-        // Tested
         public Competition GetCompetitionByName(string competitionName)
         {
-            return this.Context.Competitions.FirstOrDefault(c => c.Name == competitionName);
+            return this.Context
+                .Competitions
+                .FirstOrDefault(c => c.Name == competitionName);
         }
 
-        // Tested
         public bool CloseCompetition(int id)
         {
             Competition competition = this.GetCompetitionById(id);

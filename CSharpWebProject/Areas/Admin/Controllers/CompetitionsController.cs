@@ -40,8 +40,8 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 Description = c.Description.Substring(0, 20) + "...",
                 EndDate = c.EndDate.ToString("dd/MM/yyyy"),
                 IsOpen = c.IsOpen,
-                Name = c.Name,
-                Sponsor = c.Sponsor
+                Name = c.Name.Substring(0,15) + "...",
+                Sponsor = c.Sponsor.Substring(0, 10) + "..."
             }).ToList();
 
             PaginatedList<CompetitionViewModel> competitorsPage = await PaginatedList<CompetitionViewModel>.CreateAsync(competitions, page, pageSize);

@@ -71,13 +71,8 @@
 
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Competitions" asp-action="Index">Competitions</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="SolveTimes" asp-action="Index">Solve Times</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="News" asp-action="Index">Solve Times</a>
-
-                                    @*<a class="dropdown-item" href="/Admin/Competitions">Competitions</a>
-                        <a class="dropdown-item" href="/Admin/Times">Times</a>
-                        <a class="dropdown-item" href="#">Something else here</a>*@
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Separated link</a>
+                                    <a class="dropdown-item" asp-controller="News" asp-action="Index">News</a>
+                                    <a class="dropdown-item" asp-controller="Records" asp-action="Index">Leaderboard</a>
                                 </div>
                             </li>
                         }

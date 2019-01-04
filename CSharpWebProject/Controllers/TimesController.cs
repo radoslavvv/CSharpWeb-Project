@@ -77,10 +77,6 @@ namespace CSharpWebProject.Controllers
             string userId = this.usersService.GetUserIdByUsername(username);
             List<SolveTime> solveTimes = this.timesService.GetAllUserTimes(username);
 
-            //string bestTime = solveTimes
-            //    .Select(s => DateTime.ParseExact(s.Result, "mm:ss:fff", CultureInfo.InvariantCulture)).Min()
-            //    .ToString("mm:ss:fff");
-
             ListSolveTimeCollection result = new ListSolveTimeCollection()
             {
                 ListSolveTimes = solveTimes
@@ -93,11 +89,11 @@ namespace CSharpWebProject.Controllers
 
             return View("MySolveTimesList", result);
         }
+
         // GET: Times/Create
         public ActionResult Create()
         {
             return View();
         }
-
     }
 }

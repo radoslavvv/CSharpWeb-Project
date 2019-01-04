@@ -16,7 +16,9 @@ namespace CSharpWebProject.Services
 
         public string GetUserIdByUsername(string username)
         {
-            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            User user = this.Context
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
 
             if(user != null)
             {
@@ -30,7 +32,9 @@ namespace CSharpWebProject.Services
 
         public User GetUserByUsername(string username)
         {
-            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            User user = this.Context
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
 
             return user;
         }

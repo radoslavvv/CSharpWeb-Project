@@ -73,7 +73,9 @@ namespace CSharpWebProject.Services
 
         public List<SolveTime> GetAllUserTimes(string username)
         {
-            User user = this.Context.Users.FirstOrDefault(u => u.UserName == username);
+            User user = this.Context
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
 
             if (user != null)
             {

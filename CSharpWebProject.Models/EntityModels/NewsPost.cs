@@ -10,7 +10,7 @@ namespace CSharpWebProject.Models.EntityModels
         public int Id { get; set; }
 
         [Required]
-        [MinLength(25)]
+        [MinLength(10)]
         public string Title { get; set; }
 
         public string AuthorId { get; set; }

@@ -11,10 +11,12 @@ namespace CSharpWebProject.Controllers
     public class StatusCodeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
         public StatusCodeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
+
         // GET: /<controller>/
         [HttpGet("/StatusCode/{statusCode}")]
         public IActionResult Index(int statusCode)

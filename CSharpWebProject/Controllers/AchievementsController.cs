@@ -27,16 +27,7 @@ namespace CSharpWebProject.Controllers
             string username = this.User.Identity.Name;
             MyAchievementsViewModel achievements = this.achievementsService.GetAllAchievements(username);
 
-            //string username = this.User.Identity.Name;
-            //User user = this.usersService.GetUserByUsername(username);
-            //List<Achievement> achievements = user.Achievements.Select(ua => ua.Achievement).Select(a=>new AchievementViewModelToList();
-
             return View(achievements);
         }
-
-        //public IActionResult AddAchievement(string achievement, string username)
-        //{
-        //    //this.achievementsService.AddAchievement(achievement, username);
-        //}
     }
 }
