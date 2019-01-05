@@ -24,6 +24,10 @@
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">@item.Content<p>
             <p class="card-text float-right">-- @item.AuthorName ( @item.Date )<p>
+            <p>
+                <a class="btn btn-outline-dark" asp-action="Edit" asp-controller="News" asp-area="Admin" asp-route-id="@item.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-controller="News" asp-area="Admin" asp-route-id="@item.Id">Delete</a>
+            </p>
         </div>
     </div>
 

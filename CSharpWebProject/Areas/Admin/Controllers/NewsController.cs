@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CSharpWebProject.Data;
 using CSharpWebProject.Models.EntityModels;
 using Microsoft.AspNetCore.Authorization;
+using CSharpWebProject.Models.ViewModels;
 
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
@@ -85,8 +86,17 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", newsPost.AuthorId);
-            return View(newsPost);
+            NewsPostEditViewModel result = new NewsPostEditViewModel()
+            {
+                AuthorId = newsPost.AuthorId,
+                Content = newsPost.Content,
+                Date = newsPost.Date,
+                Id = newsPost.Id,
+                Title = newsPost.Title
+            };
+
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "UserName", newsPost.AuthorId);
+            return View(result);
         }
 
         // POST: Admin/NewsPosts/Edit/5
@@ -94,7 +104,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,AuthorId,Content,Date")] NewsPost newsPost)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,AuthorId,Content,Date")] NewsPostEditViewModel newsPost)
         {
             if (id != newsPost.Id)
             {
@@ -105,7 +115,8 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(newsPost);
+                    NewsPost result = _context.Posts.FirstOrDefault(p => p.Id == newsPost.Id);
+                    _context.Update(result);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -121,7 +132,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index", "News", new { area = "" });
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", newsPost.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "UserName", newsPost.AuthorId);
             return View(newsPost);
         }
 
@@ -141,7 +152,16 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(newsPost);
+            NewsPostViewModel result = new NewsPostViewModel()
+            {
+                AuthorName = newsPost.Author.UserName,
+                Content = newsPost.Content,
+                Date = newsPost.Date.ToString("dd/MM/yyyy"),
+                Id = newsPost.Id,
+                Title = newsPost.Title,
+            };
+
+            return View(result);
         }
 
         // POST: Admin/NewsPosts/Delete/5

@@ -17,6 +17,12 @@ html {
     font-size: 16px;
   }
 }
+.my-footer {
+    position: fixed;
+    text-align: center;
+    bottom: 10px;
+    width: 100%;
+}
 
 .border-top {
   border-top: 1px solid #e5e5e5;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace CSharpWebProject.Models.EntityModels
+namespace CSharpWebProject.Models.ViewModels
 {
-    public class NewsPost
+    public class NewsPostEditViewModel
     {
         public int Id { get; set; }
 

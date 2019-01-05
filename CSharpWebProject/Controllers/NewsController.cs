@@ -23,13 +23,14 @@ namespace CSharpWebProject.Controllers
         {
             int pageSize = 10;
             List<NewsPostViewModel> posts = this.newsService.GetAllPosts()
-                .Select(n=> new NewsPostViewModel()
-            {
-                AuthorName = n.Author.UserName,
-                Content = n.Content,
-                Date = n.Date.ToString("dd/MM/yyyy"),
-                Title = n.Title
-            }).ToList();
+                .Select(n => new NewsPostViewModel()
+                {
+                    Id = n.Id,
+                    AuthorName = n.Author.UserName,
+                    Content = n.Content,
+                    Date = n.Date.ToString("dd/MM/yyyy"),
+                    Title = n.Title
+                }).ToList();
 
             PaginatedList<NewsPostViewModel> newsPage = await PaginatedList<NewsPostViewModel>.CreateAsync(posts, page, pageSize);
 

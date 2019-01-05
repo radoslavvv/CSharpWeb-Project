@@ -44,6 +44,7 @@ namespace CSharpWebProject.Controllers
         {
             User user = this.usersService.GetUserByUsername(this.User.Identity.Name);
 
+            
             List<CompetitionViewModel> competitions = user.Competitions.Select(c => new CompetitionViewModel()
             {
                 Competitors = c.Competitors,

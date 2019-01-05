@@ -1,4 +1,4 @@
-﻿@model CSharpWebProject.Models.EntityModels.NewsPost
+﻿@model CSharpWebProject.Models.ViewModels.NewsPostViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -17,10 +17,10 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.DisplayNameFor(model => model.AuthorName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author.Id)
+            @Html.DisplayFor(model => model.AuthorName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Content)

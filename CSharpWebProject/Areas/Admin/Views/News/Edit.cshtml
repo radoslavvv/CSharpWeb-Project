@@ -1,4 +1,4 @@
-﻿@model CSharpWebProject.Models.EntityModels.NewsPost
+﻿@model CSharpWebProject.Models.ViewModels.NewsPostEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -35,12 +35,11 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
+
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

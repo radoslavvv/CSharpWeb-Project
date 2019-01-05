@@ -1,5 +1,5 @@
 ﻿@using CSharpWebProject.Models
-@model PaginatedList<CSharpWebProject.Models.EntityModels.SolveTime>
+@model PaginatedList<CSharpWebProject.Models.ViewModels.SolveTimeViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
+                    @Html.DisplayFor(modelItem => item.Username)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)

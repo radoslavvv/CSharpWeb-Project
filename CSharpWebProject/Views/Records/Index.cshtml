@@ -52,10 +52,9 @@
                     @if (User.IsInRole("Administrator"))
                     {
                         <td>
-                            <a href="/Admin/SolveTimes/Edit?id=@item.Id" class="btn btn-outline-dark">Edit</a> |
-                            <a href="/Admin/SolveTimes/Details?id=@item.Id" class="btn btn-dark">Details</a> |
-                            <a href="/Admin/SolveTimes/Delete?id=@item.Id" class="btn btn-danger">Delete</a>
-
+                            <a href="/Admin/RecordSolveTimes/Edit?id=@item.Id" class="btn btn-outline-dark bg-light">Edit</a> |
+                            <a href="/Admin/RecordSolveTimes/Details?id=@item.Id" class="btn btn-dark">Details</a> |
+                            <a href="/Admin/RecordSolveTimes/Delete?id=@item.Id" class="btn btn-danger">Delete</a>
                         </td>
                     }
                 </tr>
