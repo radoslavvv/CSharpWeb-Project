@@ -15,11 +15,11 @@ namespace CSharpWebProject.Models.EntityModels
         public int Id { get; set; }
 
         [Required(ErrorMessage ="You must enter a Competition Name!")]
-        [MinLength(10)]
+        [MinLength(10, ErrorMessage = "The Name must be at least 10 characters!")]
         public string Name { get; set; }
 
         [Required(ErrorMessage ="You must enter Competition Description!")]
-        [MinLength(55)]
+        [MinLength(55, ErrorMessage = "The Description must be at least 55 characters!")]
         public string Description { get; set; }
 
         public virtual List<Competitor> Competitors { get; set; }

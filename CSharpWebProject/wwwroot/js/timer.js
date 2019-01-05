@@ -158,18 +158,19 @@ var Timer = /** @class */ (function () {
         }, 1500);
     };
     Timer.prototype.addTimes = function () {
-        var _this = this;
         if (window.location.href.toLowerCase().indexOf("competition") === -1) {
             $.ajax({
                 url: "/Times/AddTimes",
                 type: "POST",
                 data: { times: JSON.stringify(this.solveTimes), timeType: "Practice" },
                 context: document.body
-            }).done(function (gotAchievemnt) {
-                if (gotAchievemnt) {
-                    _this.showAchievement();
-                }
-            });
+            }).done(function () { });
+            $("#timesAlert")
+                .removeClass("alert-danger")
+                .addClass("alert-success")
+                .text("You successfully saved your times!")
+                .alert()
+                .fadeIn();
             $("#times").empty();
             this.solveTimes = [];
         }

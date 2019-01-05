@@ -2,21 +2,23 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
+
 .my-footer {
     position: fixed;
     text-align: center;
@@ -25,40 +27,45 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
+.newsPost {
+    margin-left: 0px !important;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 .achievementStar {
@@ -69,9 +76,11 @@ body {
 }
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 .card {
     margin: 15px;
 }
+
 body {
     background: #209dd2;
     font-family: Lato;
@@ -88,6 +97,7 @@ body {
     margin: 40px auto;
     box-shadow: 0 3px 20px #1e7195;
 }
+
 footer {
     position: fixed;
     height: auto;
@@ -98,68 +108,69 @@ footer {
     z-index: -1;
     background: #f9f9f9;
 }
-    #achievement.expand {
+
+#achievement.expand {
+    transform: scale(1);
+}
+
+    #achievement.expand .circle:before {
+        animation: rotate 400ms linear;
+    }
+
+    #achievement.expand.widen {
+        width: 380px;
+        border-radius: 50px;
+    }
+
+#achievement .circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #e4bf2b;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+    #achievement .circle:before {
+        font-size: 50px;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005";
+        color: #fff;
+        position: absolute;
+        top: 15px;
+        left: 17px;
         transform: scale(1);
-    }
-
-        #achievement.expand .circle:before {
-            animation: rotate 400ms linear;
-        }
-
-        #achievement.expand.widen {
-            width: 380px;
-            border-radius: 50px;
-        }
-
-    #achievement .circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: #e4bf2b;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-    }
-
-        #achievement .circle:before {
-            font-size: 50px;
-            font-family: FontAwesome;
-            display: inline-block;
-            content: "\f005";
-            color: #fff;
-            position: absolute;
-            top: 15px;
-            left: 17px;
-            transform: scale(1);
-            transition: 250ms ease-in-out;
-        }
-
-        #achievement .circle.rotate:before {
-            animation: rotateBack 400ms linear;
-        }
-
-    #achievement .copy {
-        opacity: 0;
         transition: 250ms ease-in-out;
-        width: 240px;
-        position: absolute;
-        left: 100px;
-        top: 35px;
     }
 
-        #achievement .copy.show {
-            opacity: 1;
-            top: 25px;
-        }
+    #achievement .circle.rotate:before {
+        animation: rotateBack 400ms linear;
+    }
 
-        #achievement .copy h4 {
-            font-size: 22px;
-            margin: 0;
-        }
+#achievement .copy {
+    opacity: 0;
+    transition: 250ms ease-in-out;
+    width: 240px;
+    position: absolute;
+    left: 100px;
+    top: 35px;
+}
 
-        #achievement .copy p {
-            margin: 0;
-        }
+    #achievement .copy.show {
+        opacity: 1;
+        top: 25px;
+    }
+
+    #achievement .copy h4 {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    #achievement .copy p {
+        margin: 0;
+    }
 
 .refresh {
     display: none;
@@ -201,6 +212,6 @@ footer {
     margin-bottom: 10px;
 }
 
-.goBackButton{
-    float:right;
+.goBackButton {
+    float: right;
 }

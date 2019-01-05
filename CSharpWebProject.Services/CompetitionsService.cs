@@ -155,7 +155,7 @@ namespace CSharpWebProject.Services
             }
 
             CompetiveSolveTime bestTime = solveTimes
-                .OrderByDescending(t => t.Result)
+                .OrderBy(t => t.Result.TimeOfDay)
                 .FirstOrDefault();
 
             if(bestTime == null)

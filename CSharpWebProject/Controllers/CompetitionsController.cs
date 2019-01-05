@@ -219,7 +219,7 @@ namespace CSharpWebProject.Controllers
             }
             else
             {
-                List<CompetitorViewModel> sortedCompetitors = competititonComeptitors.OrderBy(c => c.BestTime).ToList();
+                List<CompetitorViewModel> sortedCompetitors = competititonComeptitors.OrderBy(c => DateTime.ParseExact(c.BestTime, "mm:ss:fff", CultureInfo.InvariantCulture).TimeOfDay).ToList();
                 List<CompetitorViewModel> winners = sortedCompetitors.Take(3).ToList();
 
                 PaginatedList<CompetitorViewModel> competitorsPage = await PaginatedList<CompetitorViewModel>.CreateAsync(sortedCompetitors.ToList(), page, pageSize);

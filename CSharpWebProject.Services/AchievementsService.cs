@@ -13,6 +13,7 @@ namespace CSharpWebProject.Services
     {
         public AchievementsService(ApplicationDbContext context) : base(context)
         {
+            //this.SeedDabase();
         }
 
         public bool AddAchievement(string username, string achievementName)
@@ -103,7 +104,7 @@ namespace CSharpWebProject.Services
 
             int bestTimeInSeconds = user
                 .SolveTimes
-                .OrderBy(s => s.Result)
+                .OrderBy(s => s.Result.TimeOfDay)
                 .FirstOrDefault()
                 .Result
                 .Second;
@@ -235,7 +236,7 @@ namespace CSharpWebProject.Services
             List<AchievementViewModel> competitionAchivements = this
                .Context
                .Achievements
-               .Where(c => c.Category == "Competition").Select(a => new AchievementViewModel()
+               .Where(c => c.Category == "Competitions").Select(a => new AchievementViewModel()
                {
                    Category = a.Category,
                    Description = a.Description,
