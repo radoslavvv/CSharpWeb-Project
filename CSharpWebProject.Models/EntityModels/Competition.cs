@@ -10,6 +10,7 @@ namespace CSharpWebProject.Models.EntityModels
         public Competition()
         {
             this.Competitors = new List<Competitor>();
+            this.Users = new List<UserCompetition>();
         }
 
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace CSharpWebProject.Models.EntityModels
         public string Sponsor { get; set; }
 
         public bool IsOpen { get; set; }
+
+        public virtual List<UserCompetition> Users { get; set; }
     }
 }

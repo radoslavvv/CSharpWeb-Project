@@ -9,6 +9,7 @@ using CSharpWebProject.Data;
 using CSharpWebProject.Models.EntityModels;
 using Microsoft.AspNetCore.Authorization;
 using CSharpWebProject.Models.ViewModels;
+using CSharpWebProject.Models.ViewModels.News;
 
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
@@ -60,13 +61,21 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,Date")] NewsPost newsPost)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,Date")] NewsPostCreateViewModel newsPost)
         {
             if (ModelState.IsValid)
             {
-                newsPost.AuthorId = this._context.Users.FirstOrDefault(u => u.UserName == "admin@admin.admin").Id;
-                newsPost.Date = DateTime.Now;
-                _context.Add(newsPost);
+                NewsPost post = new NewsPost()
+                {
+                    AuthorId = this._context.Users.FirstOrDefault(u => u.UserName == "admin@admin.admin").Id,
+                    Date = DateTime.Now,
+                    Content = newsPost.Content,
+                    Title = newsPost.Title,
+                    Id = newsPost.Id,
+                };
+                //newsPost.AuthorId =
+                //newsPost.Date = 
+                _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "News", new { area = "" });
             }

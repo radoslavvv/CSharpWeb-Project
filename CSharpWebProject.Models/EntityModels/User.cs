@@ -11,14 +11,14 @@
         {
             this.SolveTimes = new List<SolveTime>();
             this.Achievements = new HashSet<UserAchievement>();
-            this.Competitions = new List<Competition>();
+            this.Competitions = new List<UserCompetition>();
         }
 
         public virtual ICollection<UserAchievement> Achievements  { get; set; }
 
         public virtual ICollection<SolveTime> SolveTimes { get; set; }
 
-        public virtual ICollection<Competition> Competitions { get; set; }
+        public virtual ICollection<UserCompetition> Competitions { get; set; }
 
     }
 }

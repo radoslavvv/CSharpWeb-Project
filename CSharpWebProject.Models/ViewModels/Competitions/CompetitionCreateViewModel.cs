@@ -17,13 +17,9 @@ namespace CSharpWebProject.Models.ViewModels.Competitions
         [MinLength(55, ErrorMessage = "The Description must be at least 55 characters!")]
         public string Description { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "You must enter Competition Start Date!")]
         public DateTime StartDate { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "You must enter Competition End Date!")]
         public DateTime EndDate { get; set; }
 

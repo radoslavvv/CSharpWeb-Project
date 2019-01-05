@@ -74,7 +74,9 @@ body {
     border: 3px solid black;
     border-radius: 9px;
 }
-
+/*body {
+    font-family: 'Permanent Marker', cursive !important
+}*/
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 .card {

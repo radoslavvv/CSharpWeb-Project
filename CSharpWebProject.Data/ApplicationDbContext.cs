@@ -44,11 +44,6 @@ namespace CSharpWebProject.Data
                 .HasForeignKey(c => c.CompetitionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //builder.Entity<CompetiveSolveTime>()
-            //    .HasOne(s => s.User)
-            //    .WithMany(s => s.SolveTimes)
-            //    .HasForeignKey(s => s.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Competitor>()
                 .HasMany(c => c.SolveTimes)
@@ -56,18 +51,14 @@ namespace CSharpWebProject.Data
                 .HasForeignKey(c => c.CompetitorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //builder
-            //    .Entity<SolveTime>()
-            //    .OnDelete(DeleteBehavior.Cascade);
-            //builder.
-            //    Entity<Competition>()
-            //    .HasMany(c => c.Winners).
-            //    WithOne(c => c.Competition).
-            //    HasForeignKey(c => c.CompetitionId);
 
             builder
                 .Entity<UserAchievement>()
                 .HasKey(ua => new { ua.UserId, ua.AchievementId });
+
+            builder
+                .Entity<UserCompetition>()
+                .HasKey(ua => new { ua.UserId, ua.CompetitionId });
 
             base.OnModelCreating(builder);
         }

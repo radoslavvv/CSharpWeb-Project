@@ -93,7 +93,11 @@ namespace CSharpWebProject.Services
                 return false;
             }
 
-            dbUser.Competitions.Add(competition);
+            dbUser.Competitions.Add(new UserCompetition()
+            {
+                UserId = user.Id,
+                CompetitionId = competition.Id
+            });
             this.Context.SaveChanges();
 
             return true;
@@ -130,7 +134,8 @@ namespace CSharpWebProject.Services
             }
 
             competition.Competitors.Remove(competitor);
-            user.Competitions.Remove(competition);
+            UserCompetition remove = user.Competitions.First(c => c.CompetitionId == id);
+            user.Competitions.Remove(remove);
             this.Context.SaveChanges();
 
             return true;

@@ -47,13 +47,13 @@ namespace CSharpWebProject.Controllers
 
             List<CompetitionViewModel> competitions = user.Competitions.Select(c => new CompetitionViewModel()
             {
-                Competitors = c.Competitors,
-                Description = c.Description.Substring(0, 50) + "...",
-                EndDate = c.EndDate.ToString("dd/MM/yyyy"),
-                Id = c.Id,
-                Name = c.Name,
-                StartDate = c.StartDate.ToString("dd/MM/yyyy"),
-                IsOpen = c.IsOpen
+                Competitors = c.Competition.Competitors,
+                Description = c.Competition.Description.Substring(0, 50) + "...",
+                EndDate = c.Competition.EndDate.ToString("dd/MM/yyyy"),
+                Id = c.Competition.Id,
+                Name = c.Competition.Name,
+                StartDate = c.Competition.StartDate.ToString("dd/MM/yyyy"),
+                IsOpen = c.Competition.IsOpen
             }).ToList();
 
             PaginatedList<CompetitionViewModel> myCompetitions = await PaginatedList<CompetitionViewModel>.CreateAsync(competitions, page, pageSize);
