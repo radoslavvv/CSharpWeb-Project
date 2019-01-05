@@ -215,3 +215,19 @@ footer {
 .goBackButton {
     float: right;
 }
+
+.competitionNameCell {
+    overflow-wrap: break-word;
+    max-width: 250px;
+}
+
+.footer {
+    margin-top: 25px;
+    z-index: -1;
+}
+
+.newsPostDate, .newsPostAuthor{
+    font-style: italic;
+    font-size:15px;
+}
+

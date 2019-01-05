@@ -25,5 +25,9 @@ namespace CSharpWebProject.Models.ViewModels
         public string Sponsor { get; set; }
 
         public bool IsOpen { get; set; }
+
+        public bool UserIsInCompetition { get; set; }
+
+        public bool CompetitorHasBestTime { get; set; }
     }
 }

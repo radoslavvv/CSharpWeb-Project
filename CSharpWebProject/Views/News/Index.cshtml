@@ -19,11 +19,11 @@
 @foreach (var item in Model)
 {
     <div class="card newsPost">
-        <h5 class="card-header">Featured</h5>
+        <h5 class="card-header"><span class="newsPostDate">@item.Date</span></h5>
         <div class="card-body">
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">@item.Content<p>
-            <p class="card-text float-right">-- @item.AuthorName ( @item.Date )<p>
+            <p class="card-text float-right"><span class="newsPostAuthor">Author: @item.AuthorName</span></p>
                 @if (User.IsInRole("Administrator"))
                 {
                     <p>
@@ -41,7 +41,7 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-@if (Model.Count > 0)
+@if (Model.Count >= 5 && Model.HasNextPage || Model.HasPreviousPage)
 {
     <a href="/News/Index?page=@(Model.PageIndex - 1)"
        class="btn btn-default @prevDisabled">

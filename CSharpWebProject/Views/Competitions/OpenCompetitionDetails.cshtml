@@ -9,7 +9,7 @@
             <p class="card-text">@Model.Description</p>
         </div>
         <h6 class="text-right">Sponsor: @Model.Sponsor</h6>
-        <h6 class="text-center">Competitors Count: @Model.Competitors.Count</h6>
+        <h6 class="text-center">Competitors Count: @ViewBag.CompetitorsCount</h6>
 
         <table class="table table-hover">
             <thead>
@@ -50,7 +50,8 @@
             var nextDisabled = !Model.Competitors.HasNextPage ? "disabled" : "";
         }
 
-
+        @if (Model.Competitors.Count >= 5 && Model.Competitors.HasNextPage || Model.Competitors.HasPreviousPage)
+        {
             <a href="/Competitions/Details?id=@Model.Id&page=@(Model.Competitors.PageIndex - 1)"
                class="btn btn-default @prevDisabled">
                 Previous
@@ -59,21 +60,23 @@
                class="btn btn-default @nextDisabled">
                 Next
             </a>
-            <div class="text-center">
+        }
 
-                @if (Model.Competitors.Any(c => c.Name == User.Identity.Name))
-                {
-                    if (Model.Competitors.FirstOrDefault(c => c.Name == User.Identity.Name).BestTime == null)
-                    {
-                        <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
-                    }
-                }
-                else
-                {
-                    <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
-                }
+        <div class="text-center">
 
-                <a href="/Competitions/Index" class="btn btn-dark goBackButton">Go Back</a>
-            </div>
+            @if (Model.UserIsInCompetition)
+            {
+                if (Model.CompetitorHasBestTime)
+                {
+                    <a href="/Competitions/Leave?id=@Model.Id" class=" btn btn-primary">Leave Competition</a>
+                }
+            }
+            else
+            {
+                <a href="/Competitions/Join?id=@Model.Id" class="btn btn-primary">Join Competition</a>
+            }
+
+            <a href="/Competitions/Index" class="btn btn-dark goBackButton">Go Back</a>
+        </div>
     </div>
 </div>

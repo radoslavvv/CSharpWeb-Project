@@ -44,7 +44,7 @@ namespace CSharpWebProject.Controllers
         {
             User user = this.usersService.GetUserByUsername(this.User.Identity.Name);
 
-            
+
             List<CompetitionViewModel> competitions = user.Competitions.Select(c => new CompetitionViewModel()
             {
                 Competitors = c.Competitors,
@@ -196,8 +196,16 @@ namespace CSharpWebProject.Controllers
                 })
                 .ToList();
 
-            int pageSize = 3;
+            int pageSize = 5;
+            int competitorsCount = this.competitionsService.GetCompetitionCompetitors(id).Count();
+            bool userIsInCompetition = competition.Competitors.Any(c => c.User.UserName == User.Identity.Name);
+            bool userHasBestTime = false;
+            if (userIsInCompetition)
+            {
+                userHasBestTime = competition.Competitors.FirstOrDefault(c => c.User.UserName == User.Identity.Name).BestTime == null;
+            }
 
+            ViewBag.CompetitorsCount = competitorsCount;
             CompetitionDetailsViewModel result;
             if (competition.IsOpen)
             {
@@ -212,7 +220,10 @@ namespace CSharpWebProject.Controllers
                     Name = competition.Name,
                     Sponsor = competition.Sponsor,
                     StartDate = competition.StartDate,
-                    IsOpen = competition.IsOpen
+                    IsOpen = competition.IsOpen,
+                    UserIsInCompetition = userIsInCompetition,
+                    CompetitorHasBestTime = userHasBestTime
+
                 };
 
                 return View("OpenCompetitionDetails", result);

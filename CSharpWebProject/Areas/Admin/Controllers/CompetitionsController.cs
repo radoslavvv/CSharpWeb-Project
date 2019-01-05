@@ -11,6 +11,7 @@ using CSharpWebProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using CSharpWebProject.Models.ViewModels;
 using CSharpWebProject.Models;
+using CSharpWebProject.Models.ViewModels.Competitions;
 
 namespace CSharpWebProject.Areas.Admin.Controllers
 {
@@ -40,8 +41,8 @@ namespace CSharpWebProject.Areas.Admin.Controllers
                 Description = c.Description.Substring(0, 20) + "...",
                 EndDate = c.EndDate.ToString("dd/MM/yyyy"),
                 IsOpen = c.IsOpen,
-                Name = c.Name.Substring(0,15) + "...",
-                Sponsor = c.Sponsor.Substring(0, 10) + "..."
+                Name = c.Name,
+                Sponsor = c.Sponsor.Length > 10 ? c.Sponsor.Substring(0, 10) + "...": c.Sponsor
             }).ToList();
 
             PaginatedList<CompetitionViewModel> competitorsPage = await PaginatedList<CompetitionViewModel>.CreateAsync(competitions, page, pageSize);
@@ -117,11 +118,22 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate,Sponsor,IsOpen")] Competition competition)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate,Sponsor,IsOpen")] CompetitionCreateViewModel competition)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(competition);
+                Competition result = new Competition()
+                {
+                    Description = competition.Description,
+                    Id = competition.Id,
+                    StartDate = competition.StartDate,
+                    Sponsor = competition.Sponsor,
+                    Name = competition.Name,
+                    IsOpen = competition.IsOpen,
+                    EndDate = competition.EndDate
+                };
+
+                _context.Add(result);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -141,7 +153,17 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View(competition);
+            CompetitionEditViewModel result = new CompetitionEditViewModel()
+            {
+                Description = competition.Description,
+                Sponsor = competition.Sponsor,
+                EndDate = competition.EndDate,
+                IsOpen = competition.IsOpen,
+                Id = competition.Id,
+                Name = competition.Name,
+                StartDate = competition.StartDate
+            };
+            return View(result);
         }
 
         // POST: Admin/Competitions/Edit/5
@@ -149,7 +171,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate,Sponsor,IsOpen")] Competition competition)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate,Sponsor,IsOpen")] CompetitionEditViewModel competition)
         {
             if (id != competition.Id)
             {
@@ -160,7 +182,17 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(competition);
+                    Competition result = new Competition()
+                    {
+                        Description = competition.Description,
+                        Sponsor = competition.Sponsor,
+                        EndDate = competition.EndDate,
+                        IsOpen = competition.IsOpen,
+                        Id = competition.Id,
+                        Name = competition.Name,
+                        StartDate = competition.StartDate
+                    };
+                    _context.Update(result);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

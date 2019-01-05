@@ -19,7 +19,7 @@ namespace CSharpWebProject.Models.ViewModels
         [Required(ErrorMessage = "You must enter Content!")]
         [MaxLength(400)]
         public string Content { get; set; }
-
+        
         public DateTime Date { get; set; }
     }
 }

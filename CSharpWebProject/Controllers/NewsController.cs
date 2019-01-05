@@ -21,7 +21,7 @@ namespace CSharpWebProject.Controllers
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            int pageSize = 10;
+            int pageSize = 5;
             List<NewsPostViewModel> posts = this.newsService.GetAllPosts()
                 .Select(n => new NewsPostViewModel()
                 {

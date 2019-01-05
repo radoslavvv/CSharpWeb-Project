@@ -55,11 +55,15 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<a href="/Admin/SolveTimes/Index?page=@(Model.PageIndex - 1)"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a href="/Admin/SolveTimes/Index?page=@(Model.PageIndex + 1)"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
+@if (Model.Count >= 10 && Model.HasNextPage || Model.HasPreviousPage)
+{
+    <a href="/Admin/SolveTimes/Index?page=@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a href="/Admin/SolveTimes/Index?page=@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+}
+

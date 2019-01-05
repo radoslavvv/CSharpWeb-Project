@@ -65,6 +65,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 newsPost.AuthorId = this._context.Users.FirstOrDefault(u => u.UserName == "admin@admin.admin").Id;
+                newsPost.Date = DateTime.Now;
                 _context.Add(newsPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "News", new { area = "" });
