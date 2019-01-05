@@ -110,6 +110,10 @@ namespace CSharpWebProject.Services
                 .Second;
 
             bool gotAchievement = false;
+            if (bestTimeInSeconds < 3)
+            {
+                this.AddAchievement(username, "Achieve Time Under 3 Seconds");
+            }
             if (bestTimeInSeconds < 5)
             {
                 this.AddAchievement(username, "Achieve Time Under 5 Seconds");
@@ -236,7 +240,7 @@ namespace CSharpWebProject.Services
             List<AchievementViewModel> competitionAchivements = this
                .Context
                .Achievements
-               .Where(c => c.Category == "Competitions").Select(a => new AchievementViewModel()
+               .Where(c => c.Category == "Competition").Select(a => new AchievementViewModel()
                {
                    Category = a.Category,
                    Description = a.Description,

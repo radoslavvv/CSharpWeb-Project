@@ -78,6 +78,7 @@ namespace CSharpWebProject.Areas.Admin.Controllers
 
             this.competitionsService.RemoveUser(competitionId, competitor);
 
+
             return RedirectToAction("Index");
         }
 

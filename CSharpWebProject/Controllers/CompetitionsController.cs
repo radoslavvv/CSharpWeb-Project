@@ -40,10 +40,10 @@ namespace CSharpWebProject.Controllers
             return RedirectToAction("Timer", new { id = id });
         }
 
-        public IActionResult MyCompetitions()
+        public async Task<IActionResult> MyCompetitions(int page = 1)
         {
             User user = this.usersService.GetUserByUsername(this.User.Identity.Name);
-
+            int pageSize = 5;
 
             List<CompetitionViewModel> competitions = user.Competitions.Select(c => new CompetitionViewModel()
             {
@@ -56,7 +56,9 @@ namespace CSharpWebProject.Controllers
                 IsOpen = c.IsOpen
             }).ToList();
 
-            return View("MyCompetitionsList", competitions);
+            PaginatedList<CompetitionViewModel> myCompetitions = await PaginatedList<CompetitionViewModel>.CreateAsync(competitions, page, pageSize);
+
+            return View("MyCompetitionsList", myCompetitions);
         }
 
         public bool AddTimes(string times, string timeType)

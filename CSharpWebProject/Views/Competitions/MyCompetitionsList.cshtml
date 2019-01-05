@@ -1,5 +1,6 @@
-﻿@using CSharpWebProject.Models.ViewModels
-@model List<CompetitionViewModel>
+﻿@using CSharpWebProject.Models
+@using CSharpWebProject.Models.ViewModels
+@model PaginatedList<CompetitionViewModel>
 
 <hr />
 <h1 class="text-center">My Competitions: </h1>
@@ -39,4 +40,21 @@
             End Date: @competition.EndDate
         </div>
     </div>
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+@if (Model.Count >= 5 && Model.HasNextPage || Model.HasPreviousPage)
+{
+    <a href="/Competitions/MyCompetitions?page=@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a href="/Competitions/Details?page=@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 }

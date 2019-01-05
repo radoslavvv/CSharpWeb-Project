@@ -78,8 +78,11 @@ namespace CSharpWebProject.Services
             competition.Competitors
                 .Add(new Competitor()
                 {
-                    User = user,
+                    UserId = user.Id,
+                    CompetitionId = competitionId
                 });
+
+            this.Context.SaveChanges();
 
             User dbUser = this.Context
                 .Users

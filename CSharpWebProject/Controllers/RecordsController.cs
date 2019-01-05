@@ -6,6 +6,8 @@ using CSharpWebProject.Models.EntityModels;
 using CSharpWebProject.Models.ViewModels;
 using CSharpWebProject.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
+using MoreLinq;
 
 namespace CSharpWebProject.Controllers
 {
@@ -23,7 +25,8 @@ namespace CSharpWebProject.Controllers
                 .GetAllTimes()
                 .Where(t => t.Type != "Practice")
                 .OrderBy(r => r.Result.TimeOfDay)
-                .Take(11)
+                .DistinctBy(c=>c.User.UserName)
+                .Take(10)
                 .Select(s => new RecordSolveTimeViewModel()
                 {
                     Date = s.Date.ToString("dd/MM/yyyy"),
